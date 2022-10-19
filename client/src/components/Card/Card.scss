@@ -1,0 +1,17 @@
+
+.card {
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+
+    &__heading {
+        color: black;
+    }
+
+    &:hover{
+        background-color: darken(white, 10);
+    }
+}

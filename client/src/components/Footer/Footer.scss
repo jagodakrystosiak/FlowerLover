@@ -1,0 +1,39 @@
+@use './../../sass/variables';
+
+footer {
+    background-color: variables.$base-dark-color;
+
+    & a {
+        color: variables.$gray-color;;
+    }
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    font-size: 14px;
+    line-height: 20px;
+
+    & h3 {
+        font-size: 18px;
+        line-height: 30px;
+    }
+
+    &__section {
+        margin-top: 30px;
+        margin-bottom: 100px;
+    }
+
+    &__copyright {
+        align-self: flex-end;
+        text-align: end;
+        margin-bottom: 30px;
+
+        & h3 {
+            font-size: 20px;
+        }
+        & p {
+            font-size: 10px;
+        }
+    }
+}

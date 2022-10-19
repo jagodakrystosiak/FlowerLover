@@ -1,0 +1,32 @@
+@import './variables';
+
+// Media Queries
+@mixin small-up {
+    @media (min-width: #{$bp-small}) {
+        @content
+    }
+};
+
+@mixin medium-up {
+    @media (min-width: #{$bp-medium}) {
+        @content
+    }
+};
+
+@mixin large-up {
+    @media (min-width: #{$bp-large}) {
+        @content
+    }
+};
+
+@mixin x-large-up {
+    @media (min-width: #{$bp-x-large}) {
+        @content
+    }
+};
+
+@mixin xx-large-up {
+    @media (min-width: #{$bp-xx-large}) {
+        @content
+    }
+};

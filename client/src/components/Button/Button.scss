@@ -1,0 +1,26 @@
+@use './../../sass/variables';
+
+.btn {
+    padding: 0 15px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+
+    &--light {
+        background-color: variables.$base-light-color;
+
+        &:hover {
+            background-color: darken(variables.$base-light-color, 30);
+        }
+    }
+
+    &--dark {
+        background-color: variables.$base-dark-color;
+
+        &:hover {
+            background-color: darken(variables.$base-dark-color, 30);
+        }
+    }
+
+}

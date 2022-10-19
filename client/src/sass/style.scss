@@ -1,0 +1,65 @@
+@import './variables';
+@import './mixins';
+
+
+body {
+    font-family: sans-serif;
+    background-color: $base-light-color;
+    color: $gray-color;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+
+    @include x-large-up {
+        max-width: 1400px;
+    }
+}
+
+.test {
+    height: 60vh;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding:  0;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+a, li {
+    text-decoration: none;
+}
+
+p {
+    font-size: $font-size-5;
+    font-weight: 400;
+    line-height: $line-height-base;
+    margin: 0;
+    margin-bottom: $grid-base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: $font-size-4;
+    line-height: $line-height-base;
+    margin: 0;
+}
+
+a {
+    color: $gray-dark-color;
+    text-decoration: none;
+    &:hover {
+        color: $gray-dark-color;
+        text-decoration: underline;
+    }
+}

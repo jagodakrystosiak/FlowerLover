@@ -1,0 +1,17 @@
+@import './mixins';
+
+.o-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    @include medium-up {
+        flex-direction: row;
+    }
+
+    &--center-y {
+        align-items: center;
+    }
+}

@@ -24,7 +24,26 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env','@babel/preset-react']
+                        presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
+                }
+            },
+            {
+                test: /.scss$/,
+                use: ['style-loader', {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                },
+                    'sass-loader']
+            },
+            {
+                test: /\.(jpg|jpeg|gif|png)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'images/[name].[ext]',
                     }
                 }
             }

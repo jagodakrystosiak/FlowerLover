@@ -1,0 +1,20 @@
+@use './../../sass/variables';
+
+.searchbar {
+    display: flex;
+
+    &__search {
+        border: 1px solid gray;
+        border-right: none;
+        padding: 10px 20px;
+        background-color: white;
+    }
+
+    &__button {
+        border: 1px solid gray;
+        border-left: none;
+        background-color: white;
+        width: 40px;
+        color: variables.$base-dark-color;
+    }
+}
