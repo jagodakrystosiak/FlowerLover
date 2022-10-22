@@ -1,5 +1,9 @@
 @import './../sass/mixins';
 
+.mt-75 {
+    margin-top: 75px;
+}
+
 .home {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -17,6 +21,7 @@
 
     & h1 {
         font-size: 25px;
+        line-height: 30px;
         margin-bottom: 10px;
     }
 
@@ -30,10 +35,6 @@
 
     &__posts {
         grid-area: posts;
-
-        & ul {
-            height: 420px;
-        }
     }
 
     &__categories {

@@ -9,7 +9,7 @@ import Home from './pages/Home';
 function App() {
 
     return (
-        <div>
+        <>
             <Router>
                 <Navbar />
                 <Routes>
@@ -17,7 +17,7 @@ function App() {
                 </Routes>
                 <Footer />
             </Router>
-        </div>
+        </>
     );
 }
 

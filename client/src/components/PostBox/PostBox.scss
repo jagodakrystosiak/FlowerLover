@@ -1,0 +1,35 @@
+.postbox {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    align-items: center;
+
+    &__post {
+        
+    }
+    &__statistic {
+        display: block;
+
+        & p {
+            width: 100px;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    }
+
+    &__title {
+
+    }
+
+    &__content {
+
+    }
+
+    &__author {
+        font-weight: bold;
+
+        & span {
+            color: red;
+        }
+    }
+}

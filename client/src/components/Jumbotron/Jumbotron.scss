@@ -1,6 +1,9 @@
 @import './../../sass/mixins';
 
 .jumbotron {
+    display: block;
+    width: 100%;
+
     @include large-up {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
