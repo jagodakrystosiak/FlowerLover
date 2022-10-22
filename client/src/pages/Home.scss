@@ -1,69 +1,66 @@
 @import './../sass/mixins';
 
-.main {
-    @include large-up  {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    @include x-large-up  {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    &__carousel {
-        @include large-up  {
-            grid-area: 1 / 1 / span 1 / span 2;
-        }
-        @include x-large-up  {
-            grid-area: 1;
-        }
-    }
-
-    &__block {
-
-        @include large-up {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-
-            & img {
-                background-color: white;
-                width: 100%;
-                height: 250px;
-            }
-        }
-
-        @include x-large-up {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-
-            & img {
-                background-color: white;
-                width: 100%;
-                height: 250px;
-            }
-        }
-
-        @include xx-large-up {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-
-            & img {
-                background-color: white;
-                width: 100%;
-                height: 250px;
-            }
-
-        }
-
-    }
-}
-
-.display-grid {
+.home {
+    margin-top: 30px;
+    margin-bottom: 30px;
     display: grid;
-}
+    grid-gap: 20px;
+    grid-template-areas: 
+        'posts posts'
+        'categories tags';
 
-.fade-long {
-    animation-name: fade-long;
-    animation-duration: 5s;
+    @include x-large-up {
+        grid-template-areas: 
+        'posts posts posts categories'
+        'posts posts posts tags';
+    }
+
+    & h1 {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+    & > div {
+        & > ul {
+            background-color: white;
+            padding: 10px;
+        }
+        
+    }
+
+    &__posts {
+        grid-area: posts;
+
+        & ul {
+            height: 420px;
+        }
+    }
+
+    &__categories {
+        grid-area: categories;
+        & ul {
+            display: flex;
+            flex-wrap: wrap;
+            height: 200px;
+
+            & li {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    &__tags {
+        grid-area: tags;
+
+        & ul {
+            display: flex;
+            flex-wrap: wrap;
+            height: 150px;
+
+            & li {
+                margin-left: 10px;
+            }
+        }
+    }
+    
 }

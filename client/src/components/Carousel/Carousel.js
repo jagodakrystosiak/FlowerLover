@@ -4,11 +4,8 @@ import './Carousel.scss';
 
 function Carousel() {
     useEffect(() => {
-        const timer = setTimeout(() => {
-            showSlides();
-        }, 1000);
-        return () => clearTimeout(timer);
-    });
+        showSlides();
+    },[]);
     let slideIndex = 0;
 
     // Next/previous controls
@@ -58,7 +55,6 @@ function Carousel() {
         }
         slideIndex++;
         if (slideIndex > slides.length) { slideIndex = 1 };
-        console.log(slideIndex);
         slides[slideIndex - 1].classList.remove("display-none");
         slides[slideIndex - 1].classList.add("display-block");
         dots[slideIndex - 1].className += " active";

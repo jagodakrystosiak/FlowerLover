@@ -1,129 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import './../sass/style.scss';
 import './Home.scss';
-import Carousel from "../components/Carousel/Carousel";
-import Card from "../components/Card/Card";
+import Jumbotron from "../components/Jumbotron/Jumbotron";
+import Button from "../components/Button/Button";
 
 function Home() {
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            showCard();
-        }, 1000);
-        return () => clearTimeout(timer);
-    });
-    let content = [];
-    let cardNum = 1;
-
-    const article = [
-        {
-            id: 1,
-            title: "Jak podcinać rośliny?",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 2,
-            title: "Jak nawozić?",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 3,
-            title: "Pomysły na aranżację balkonu",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 4,
-            title: "Uprawa ziół w domu",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 5,
-            title: "Ranking najlepszych nawozów",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 6,
-            title: "Ranking najlepszych pomysłów na rośliny",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 7,
-            title: "a",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 8,
-            title: "b",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 9,
-            title: "c",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 10,
-            title: "d",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 11,
-            title: "e",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        },
-        {
-            id: 12,
-            title: "f",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione."
-        }
-    ]
-
-    const setCards = (n) => {
-        content = [];
-        let random = Math.floor(Math.random() * 6);
-
-        for (let i = 0; i < 6; i++) {
-            if (i == random) {
-                content.push(<img className="fade-long" src="https://source.unsplash.com/random/300x300?sig=1"></img>);
-            } else {
-                content.push(<a href={"/" + article[i + n].id}><Card title={article[i + n].title}>{article[i + n].content}</Card></a>);
-            }
-        }
-    }
-
-    const getCards = (n) => {
-        setCards(n);
-        return content;
-    }
-
-    const showCard = () => {
-        var blocks = document.getElementsByClassName("main__block");
-        for (let i = 0; i < blocks.length; i++) {
-            blocks[i].classList.remove("display-grid");
-            blocks[i].classList.add("display-none");
-        }
-        cardNum++;
-        if (cardNum > blocks.length) { cardNum = 1 };
-        blocks[cardNum-1].classList.remove("display-none");
-        blocks[cardNum-1].classList.add("display-grid");
-        setTimeout(showCard, 10000);
-    }
 
     return (
-        <div>
-            <div className="main">
-                <div className="main__carousel"><Carousel /></div>
-                <div className="main__block">
-                    {getCards(0)}
+        <>
+            <Jumbotron />
+            <div className="container home">
+                <div className="home__posts">
+                    <h1>Najnowsze wpisy</h1>
+                    <ul>
+                        <li>wpis 1</li>
+                        <li>wpis 2</li>
+                        <li>wpis 3</li>
+                        <li>wpis 4</li>
+                        <li>wpis 5</li>
+                    </ul>
                 </div>
-                <div className="main__block display-none">
-                    {getCards(6)}
+                <div className="home__categories">
+                    <h1>Najpopularniejsze kategorie</h1>
+                    <ul>
+                        <li><a href="/">Kategoria</a></li>
+                        <li><a href="/">Kategoria</a></li>
+                        <li><a href="/">Kategoria</a></li>
+                        <li><a href="/">Kategoria</a></li>
+                    </ul>
+                </div>
+                <div className="home__tags">
+                    <h1>Najpopularniejsze tagi</h1>
+                    <ul>
+                        <li><Button className="btn btn--dark">kategoia 1</Button></li>
+                        <li><Button className="btn btn--dark">kategoia 2</Button></li>
+                        <li><Button className="btn btn--dark">kategoia 3</Button></li>
+                        <li><Button className="btn btn--dark">kategoia 4</Button></li>
+                        <li><Button className="btn btn--dark">kategoia 5</Button></li>
+                    </ul>
                 </div>
             </div>
-            <div className="container test">
-                <h1>Najnowsze wpisy</h1>
-                <p>aaaa</p>
-            </div>
-        </div>
+        </>
     );
 }
 
