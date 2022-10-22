@@ -25,7 +25,7 @@ function Home() {
         let posts = [];
         for (let i = 0; i < 150; i++) {
             posts[i] = {
-                title: "Post nr " + i,
+                title: "Post nr " + (i+1),
                 content: "Witam Czy wiedzą może państwo co to za szkodnik zaatakował tę monsterę? Liście bardzo poniszczone są, tracą barwę i dużo drobnych blizn (puntowych). Ja się go pozbyć?",
                 author: "roslinki123",
                 date: new Date(2022, 9, 22, 18, 10, 13),
@@ -42,7 +42,7 @@ function Home() {
         let articles = [];
         for (let i = 0; i < 12; i++) {
             articles[i] = {
-                title: "Artykuł nr" + i,
+                title: "Artykuł nr" + (i+1),
                 content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.",
                 img: "https://source.unsplash.com/random/1000x500?sig=" + i
             };
@@ -59,7 +59,7 @@ function Home() {
     return (
         <>
             <div className="mt-75"></div>
-            <Carousel articles={articles} />
+            <Jumbotron articles={articles} articlesLenght={articles.length}/>
             <div className="container home">
                 <div className="home__posts">
                     <h1>Najnowsze wpisy</h1>

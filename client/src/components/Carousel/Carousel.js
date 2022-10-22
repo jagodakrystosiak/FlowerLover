@@ -10,13 +10,15 @@ function Carousel({ articles }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             showSlides();
-          }, 2000);
+          }, 5000);
           return () => clearTimeout(timer);
     });
 
     // Next/previous controls
     function plusSlides(n) {
-        setSlideIndex(slideIndex += n);
+        setSlideIndex(slideIndex + n);
+        if (slideIndex >= articles.length-1) { setSlideIndex(0) };
+        if (slideIndex < 0) { setSlideIndex(articles.length-1) };
     }
 
     // Thumbnail image controls
@@ -27,8 +29,10 @@ function Carousel({ articles }) {
     //change index of current slide
     function showSlides() {
         setSlideIndex(slideIndex+1);
-        if (slideIndex > articles.length) { setSlideIndex(1) };
+        if (slideIndex >= articles.length-1) { setSlideIndex(0) };
     }
+
+    console.log(slideIndex);
 
     return (
         <div className='carousel'>
@@ -57,9 +61,7 @@ function Carousel({ articles }) {
                     })}
                 </div>
             </div>
-            <br />
-
-
+            <br/>
         </div>
     )
 }
