@@ -17,3 +17,13 @@
         opacity: 1
     }
 }
+
+@keyframes slide_out {
+    from {
+        height: 0%;
+    }
+
+    to {
+        height: 100%;
+    }
+}

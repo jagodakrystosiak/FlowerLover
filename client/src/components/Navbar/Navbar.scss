@@ -1,4 +1,6 @@
 @use './../../sass/variables';
+@import './../../sass/mixins';
+@import './../../sass/animations';
 
 .navbar {
     width: 100%;
@@ -10,25 +12,79 @@
     top: 0;
     z-index: 100;
 
-    & nav {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+    &--tablet {
+        display: none;
+        margin-left: 20px;
+        padding: 5px 20px 0 0;
 
-        align-items: center;
+        @include medium-up {
+            display: block;
+        }
+
+        @include large-up {
+            display: none;
+        }
+
+        &>button {
+            background-color: transparent;
+            font-size: 25px;
+            line-height: 25px;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    &--mobile {
+        display: block;
+        margin-left: 20px;
+        padding: 5px 20px 0 0;
+
+        @include medium-up {
+            display: none;
+        }
+
+        &>button {
+            background-color: transparent;
+            font-size: 25px;
+            line-height: 25px;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    & nav {
+        display: flex;
+
+        @include large-up {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: center;
+        }
+
     }
 
     &__logo {
         font-size: 20px;
         justify-self: start;
         padding-left: 20px;
+        flex-grow: 2;
+
+        @include large-up {
+            grid-area: 1;
+        }
     }
 
     &__nav {
-        display: flex;
-        justify-self: center;
+        display: none;
+
+        @include large-up {
+            display: flex;
+            justify-self: center;
+        }
 
         & li {
             padding: 0 20px;
+
             & a {
                 color: variables.$gray-color;
             }
@@ -36,14 +92,53 @@
     }
 
     &__search {
-        display: block;
-        justify-self: center;
+        display: none;
+
+        @include medium-up {
+            display: block;
+            justify-self: center;
+        }
     }
 
     &__user {
-        display: flex;
-        gap: 10px;
-        justify-self: center;
+        display: none;
+
+        @include large-up {
+            display: flex;
+            gap: 10px;
+            justify-self: center;
+        }
     }
 }
 
+#navTablet {
+    background-color: white;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 40%;
+    margin-top: 75px;
+    padding: 20px;
+
+    transition: all .5s ease-in-out;
+
+    & li {
+        margin-bottom: 20px;
+    }
+}
+
+#navMoblie {
+    background-color: white;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 40%;
+    margin-top: 75px;
+    padding: 20px;
+
+    transition: all .5s ease-in-out;
+
+    & li {
+        margin-bottom: 20px;
+    }
+}
