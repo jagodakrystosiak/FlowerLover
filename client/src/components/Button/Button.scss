@@ -1,0 +1,63 @@
+@import './../../sass/variables';
+@import './../../sass/mixins';
+
+.btn {
+    padding: $grid-base $grid-base*2;
+    border: none;
+    border-radius: $border-radius;
+    color: $gray-dark-color;
+    background-color: $white-color;
+    font-weight: 600;
+    font-size: $font-size-7;
+
+    @include large-up {
+        padding: $grid-base $grid-base;
+        font-size: $font-size-8;
+    }
+
+    @media (min-width: '1110px') {
+        padding: $grid-base $grid-base*2;
+        font-size: $font-size-7;
+    }
+
+    &--lighter {
+        background-color: $base-lighter-color;
+
+        &:hover {
+            background-color: $base-light-color;
+            color: $white-color;
+        }
+    }
+    &--light {
+        background-color: $base-light-color;
+        color: white;
+
+        &:hover {
+            background-color: $base-light-color;
+        }
+    }
+
+    &--dark {
+        background-color: $base-dark-color;
+
+        &:hover {
+            background-color: $base-darker-color;
+            color: $white-color;
+        }
+    }
+    &--darker {
+        background-color: $base-darker-color;
+        color: white;
+
+        &:hover {
+            background-color: $base-dark-color;
+            color: $gray-dark-color;
+        }
+    }
+
+
+    &--large {
+        padding: $grid-base $grid-base*2;
+        font-size: $font-size-3;
+    }
+}

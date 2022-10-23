@@ -1,0 +1,54 @@
+@use './../../sass/variables';
+@import './../../sass/mixins';
+
+footer {
+    background-color: variables.$base-dark-color;
+}
+
+.footer {
+    display: grid;
+    font-size: $font-size-7;
+    line-height: $grid-base*2;
+
+
+        grid-template-columns: repeat(2, 1fr);
+    
+
+
+    @include medium-up {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include large-up {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    & h3 {
+        font-size: $font-size-5;
+        line-height: 30px;
+    }
+
+    &__section {
+        margin-top: $grid-base*2;
+        margin-bottom: $grid-base*2;
+
+        @include large-up {
+            margin-top: $grid-base*3;
+            margin-bottom: $grid-base*10;
+        }
+    }
+
+    &__copyright {
+        align-self: flex-end;
+        text-align: end;
+        margin-bottom: $grid-base*3;
+
+        & h3 {
+            font-size: $grid-base*2;
+        }
+
+        & p {
+            font-size: $grid-base;
+        }
+    }
+}

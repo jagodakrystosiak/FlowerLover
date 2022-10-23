@@ -1,0 +1,67 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
+.postbox {
+    padding: $grid-base;
+    align-items: center;
+
+    @include small-up {
+        display: flex;
+    }
+
+    &__statistic {
+        display: flex;
+        justify-content: space-between;
+        margin-top: $grid-base;
+
+        @include small-up {
+            display: block;
+            margin-top: 0;
+
+            & p {
+                font-size: $font-size-6;
+                margin-left: $grid-base;
+            }
+        }
+
+
+        & p {
+            width: 100px;
+            font-size: $font-size-7;
+
+            &:nth-child(n) {
+                text-align: center;
+            }
+
+            @include small-up {
+
+                margin-left: $grid-base;
+
+                & span {
+                    margin: 0 0 0 0;
+                }
+
+                &:nth-child(n) {
+                    text-align: left;
+                }
+            }
+
+            @include large-up {
+                font-size: $font-size-6;
+            }
+
+        }
+    }
+
+    &__title {
+        margin: $grid-base 0;
+    }
+
+    &__author {
+        font-weight: bold;
+
+        & span {
+            color: red;
+        }
+    }
+}

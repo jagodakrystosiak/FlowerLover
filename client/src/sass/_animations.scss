@@ -1,0 +1,29 @@
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade-long {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes slide_out {
+    from {
+        height: 0%;
+    }
+
+    to {
+        height: 100%;
+    }
+}

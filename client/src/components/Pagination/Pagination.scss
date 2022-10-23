@@ -1,0 +1,41 @@
+@import './../../sass/variables';
+
+.pagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    &__list {
+        display: flex;
+
+        & li {
+
+            & button {
+                margin-left: 5px;
+                background-color: transparent;
+                border: none;
+                border-radius: 10px;
+                font-weight: bold;
+                padding: 5px 10px 5px 10px;
+                font-size: $font-size-5;
+                color: $gray-dark-color;
+
+                &.active {
+                    background-color: $base-darker-color;
+                    color: white;
+                }
+
+                &:hover {
+                    background-color: $base-dark-color;
+                    cursor: pointer;
+                }
+                &:disabled {
+                    background-color: transparent;
+                    cursor: auto;
+                }
+            }
+        }
+    }
+
+
+}

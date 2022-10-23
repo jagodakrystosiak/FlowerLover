@@ -1,0 +1,102 @@
+@import './../../sass/mixins';
+
+.jumbotron {
+    display: block;
+    width: 100%;
+
+    @include large-up {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include x-large-up {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    &__carousel {
+        @include large-up {
+            grid-area: 1 / 1 / span 1 / span 2;
+        }
+
+        @include x-large-up {
+            grid-area: 1;
+        }
+    }
+
+    &__articles {
+        display: grid;
+        
+        @include small-up {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include large-up {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+
+            & a:nth-child(n+3){
+                display: none;
+            }
+
+            & a img {
+                background-color: white;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @include x-large-up {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            & a:nth-child(n+3){
+                display: block;
+            }
+
+            & a:nth-child(n+5){
+                display: none;
+            }
+
+            & a img {
+                background-color: white;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @include xx-large-up {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 100%;
+            height: auto;
+
+            & a:nth-child(n+5){
+                display: block;
+            }
+
+            & a:nth-child(n+7){
+                display: none;
+            }
+
+            & a img {
+                background-color: white;
+                width: 100%;
+                height: auto;
+            }
+
+        }
+
+    }
+}
+
+
+
+.display-grid {
+    display: grid;
+}
+
+.fade-long {
+    animation-name: fade-long;
+    animation-duration: 5s;
+}

@@ -1,0 +1,19 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
+.card {
+    background-color: white;
+    text-align: center;
+    padding: $grid-base*2 $grid-base;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    @include large-up{
+        padding: $grid-base;
+    }
+
+    &:hover{
+        background-color: darken(white, 10);
+    }
+}
