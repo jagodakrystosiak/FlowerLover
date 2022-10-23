@@ -1,28 +1,60 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
 .postbox {
-    display: flex;
-    padding: 10px;
-    border-bottom: 1px solid gray;
+    padding: $grid-base;
     align-items: center;
 
-    &__post {
-        
+    @include small-up {
+        display: flex;
     }
+
     &__statistic {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        margin-top: $grid-base;
+
+        @include small-up {
+            display: block;
+            margin-top: 0;
+
+            & p {
+                font-size: $font-size-6;
+                margin-left: $grid-base;
+            }
+        }
+
 
         & p {
             width: 100px;
-            margin-left: 10px;
-            font-size: 14px;
+            font-size: $font-size-7;
+
+            &:nth-child(n) {
+                text-align: center;
+            }
+
+            @include small-up {
+
+                margin-left: $grid-base;
+
+                & span {
+                    margin: 0 0 0 0;
+                }
+
+                &:nth-child(n) {
+                    text-align: left;
+                }
+            }
+
+            @include large-up {
+                font-size: $font-size-6;
+            }
+
         }
     }
 
     &__title {
-
-    }
-
-    &__content {
-
+        margin: $grid-base 0;
     }
 
     &__author {

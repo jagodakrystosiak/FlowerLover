@@ -34,12 +34,12 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
                                 <><li key={number}>
                                     <button onClick={() => paginate(number)} className={number == currentPage ? 'active' : ''}>{number}</button>
                                 </li>
-                                    <li><button>...</button></li></>
+                                    <li><button disabled>...</button></li></>
                             )
                         } else if (number == Math.ceil(totalPosts / postsPerPage)) {
                             return (
                                 <>
-                                    <li><button>...</button></li>
+                                    <li><button disabled>...</button></li>
                                     <li key={number}>
                                         <button onClick={() => paginate(number)} className={number == currentPage ? 'active' : ''}>{number}</button>
                                     </li>

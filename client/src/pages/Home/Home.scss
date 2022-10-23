@@ -1,0 +1,97 @@
+@import './../../sass/mixins';
+
+.mt-67 {
+    margin-top: 67px;
+}
+
+.home {
+    margin-top: $grid-base*3;
+    margin-bottom: $grid-base*3;
+    display: block;
+
+    @include x-large-up {
+        grid-template-columns: repeat(3, 1fr);
+        display: grid;
+        grid-gap: $grid-base*2;
+
+        &__posts {
+            grid-area: 1 / 1 / 1 / span 2;
+        }
+    }
+
+    & h1 {
+        font-size: $font-size-3;
+        margin-bottom: $grid-base;
+        color: $base-darker-color;
+    }
+
+    &__posts {
+        & > ul {
+            background-color: white;
+            padding: $grid-base;
+        }
+
+    }
+
+    &__sidebar {
+
+        @include medium-up {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: $grid-base*2;
+        }
+
+        @include x-large-up {
+            display: inline-block;
+        }
+        
+        & > div {
+            margin-top: $grid-base*2;
+
+            @include x-large-up {
+                margin-top: 0;
+                margin-bottom: $grid-base*2;
+            }
+            & > ul {
+                background-color: white;
+                padding: $grid-base;
+                & > li{
+                    padding: $grid-base*0.5;
+                }
+            }
+
+        }
+    }
+
+    &__categories {
+
+        & > ul {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > li {
+
+                & > a {
+                    font-size: $font-size-6;
+                }
+            }
+        }
+    }
+
+    &__tags {
+
+        & > ul {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > li {
+                margin-left: $grid-base*0.5;
+                
+                & button {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+}

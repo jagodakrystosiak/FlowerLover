@@ -3,9 +3,13 @@
 
 
 body {
-    font-family: sans-serif;
-    background-color: $base-light-color;
-    color: $gray-color;
+    background-color: $base-lighter-color;
+    color: $gray-dark-color;
+    font-family: 'Montserrat', sans-serif;
+}
+
+button, input::placeholder {
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -15,10 +19,6 @@ body {
     @include xx-large-up {
         max-width: 1400px;
     }
-}
-
-.test {
-    height: 60vh;
 }
 
 *, *::before, *::after {
@@ -37,22 +37,25 @@ ul {
     list-style-type: none;
 }
 
-a, li {
+li {
     text-decoration: none;
+    color: $gray-dark-color;
 }
 
 p {
-    font-size: $font-size-5;
-    font-weight: 400;
-    line-height: $line-height-base;
+    font-size: $font-size-7;
+    font-weight: normal;
     margin: 0;
     margin-bottom: $grid-base;
+
+    @include medium-up {
+        font-size: $font-size-6;
+    }
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-size: $font-size-4;
-    line-height: $line-height-base;
     margin: 0;
+    font-size: $font-size-5;
 }
 
 a {

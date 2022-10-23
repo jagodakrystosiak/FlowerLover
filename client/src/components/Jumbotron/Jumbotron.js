@@ -11,7 +11,7 @@ function Jumbotron({ articles, articlesLenght }) {
     return (
         <div className="jumbotron">
             <div className="jumbotron__carousel">
-                <Carousel articles={carouselArticles}/>
+            <Carousel articles={carouselArticles}/>
             </div>
             <div className="jumbotron__articles">
                 {cardsArticles.map((article) => {

@@ -25,12 +25,12 @@ function PostBox(props) {
 return (
     <div className="postbox">
         <div className="postbox__post">
-            <h2 className="postbox__title">{props.post.title}</h2>
-            <p className="postbox__content">{props.post.content}</p>
-            <p className="postbox__author">autor: <span>{props.post.author}</span> {date}</p>
+            <a href="/"><h2 className="postbox__title">{props.post.title}</h2></a>
+            <p className="postbox__content">{props.post.content.substring(0,150)} ... </p>
+            <p className="postbox__author">autor: <a href="/">{props.post.author}</a> {date}</p>
         </div>
         <div className="postbox__statistic">
-            <p>{props.post.votes} głosów</p>
+            <p><span>{props.post.votes}</span> głosów</p>
             <p>{props.post.answers} odpowiedzi</p>
             <p>{props.post.views} wyświetleń</p>
         </div>

@@ -6,7 +6,7 @@ function Card(props) {
         <div className="card">
             <div>
                 <h2 className="card__heading">{props.title}</h2>
-                <p className="card__text">{props.children}</p>
+                <p className="card__text">{props.children.substring(0,100)} ...</p>
             </div>
         </div>
     )

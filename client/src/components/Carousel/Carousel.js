@@ -45,7 +45,7 @@ function Carousel({ articles }) {
                             <div className='carousel__img'><img src={article.img} /></div>
                             <div className="carousel__text">
                                 <h2>{article.title}</h2>
-                                <p>{article.content}</p>
+                                <p>{article.content.substring(0,150)} ... </p>
                                 <Button className="btn btn--light">Dowiedź się więcej</Button>
                             </div>
                         </div>
@@ -61,7 +61,6 @@ function Carousel({ articles }) {
                     })}
                 </div>
             </div>
-            <br/>
         </div>
     )
 }

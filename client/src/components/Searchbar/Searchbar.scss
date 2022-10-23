@@ -16,5 +16,39 @@
         background-color: white;
         width: 40px;
         color: variables.$base-dark-color;
+        cursor: pointer;
+    }
+
+    & input::placeholder {
+        font-size: 15px;
+    }
+
+    &--large {
+        &__search {
+            border: 2px solid black;
+            border-right: none;
+            background-color: white;
+        }
+
+        & input {
+            height: 50px;
+            width: 300px;
+        }
+        & button {
+            font-size: 20px;
+            width: 60px;
+        }
+    
+        & input::placeholder {
+            font-size: 20px;
+        }
+
+        &__button {
+            border: 1px solid gray;
+            border-left: none;
+            background-color: white;
+            width: 40px;
+            color: variables.$base-dark-color;
+        }
     }
 }

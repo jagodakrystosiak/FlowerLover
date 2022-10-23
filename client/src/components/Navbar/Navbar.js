@@ -19,8 +19,8 @@ export default function () {
                     </ul>
                     <p className="navbar__search"><Searchbar></Searchbar></p>
                     <ul className="navbar__user">
-                        <li><Button className="btn btn--light">Zaloguj się</Button></li>
-                        <li><Button className="btn btn--dark">Zarejestruj się</Button></li>
+                        <li><Button className="btn--light">Zaloguj się</Button></li>
+                        <li><Button className="btn--darker">Zarejestruj się</Button></li>
                     </ul>
                     <div className="navbar--tablet">
                         <button onClick={() => setShowMenuTablet(!showMenuTablet)}><i class="fa-solid fa-bars"></i></button>
@@ -28,8 +28,8 @@ export default function () {
                             <li><a href='/article'>Porady</a></li>
                             <li><a href='/post'>Forum</a></li>
                             <li><a href='/plant'>Rośliny</a></li>
-                            <li><Button className="btn btn--light">Zaloguj się</Button></li>
-                            <li><Button className="btn btn--dark">Zarejestruj się</Button></li>
+                            <li><Button className="btn--lighter">Zaloguj się</Button></li>
+                            <li><Button className="btn--dark">Zarejestruj się</Button></li>
                         </ul>
                     </div>
                     <div className="navbar--mobile">
@@ -39,8 +39,8 @@ export default function () {
                             <li><a href='/article'>Porady</a></li>
                             <li><a href='/post'>Forum</a></li>
                             <li><a href='/plant'>Rośliny</a></li>
-                            <li><Button className="btn btn--light">Zaloguj się</Button></li>
-                            <li><Button className="btn btn--dark">Zarejestruj się</Button></li>
+                            <li><Button className="btn--lighter">Zaloguj się</Button></li>
+                            <li><Button className="btn--dark">Zarejestruj się</Button></li>
                         </ul>
                     </div>
                 </nav>
