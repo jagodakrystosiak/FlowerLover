@@ -5,10 +5,13 @@ $base-light-color: darken($base-lighter-color, 30);
 $base-dark-color: #B5BBB8;
 $base-darker-color: darken($base-dark-color, 30);
 $gray-color: #707070;
-$gray-light-color: #f9fbfe48;
+$gray-light-color: rgb(207, 207, 207);
 $gray-dark-color: #444444;
 $white-color: #FFFFFF;
 $black-color: #000000;
+
+$box-shadow-inset-black: inset 0px -200px 100px -50px rgba(0, 0, 0, 1);
+$box-shadow-inset-white: inset 0px -100px 30px -50px rgba(255, 255, 255, 1);
 
 // Text
 $font-size-base: 1rem; //16px

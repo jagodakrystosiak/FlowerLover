@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './Pagination.scss';
 
 const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
@@ -13,26 +13,26 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
             <ul className="pagination__list">
                 {currentPage - 1 >= 1 ? <li><button onClick={() => paginate(currentPage - 1)} href=""><i class="fa-solid fa-arrow-left"></i></button></li> : <></>}
 
-                {pageNumber.map(number => {
+                {pageNumber.map((number) => {
                     if (number <= 5 && currentPage < 5) {
                         return (
                             <li key={number}>
-                                <button onClick={() => paginate(number)} className={number == currentPage ? 'active' : ''}>{number}</button>
+                                <button onClick={() => paginate(number)} className={number === currentPage ? 'active' : ''}>{number}</button>
                             </li>
                         )
                     }
                     if (number >= Math.ceil(totalPosts / postsPerPage) - 4 && currentPage > Math.ceil(totalPosts / postsPerPage) - 4) {
                         return (
                             <li key={number}>
-                                <button onClick={() => paginate(number)} className={number == currentPage ? 'active' : ''}>{number}</button>
+                                <button onClick={() => paginate(number)} className={number === currentPage ? 'active' : ''}>{number}</button>
                             </li>
                         )
                     }
-                    if (number == currentPage || number == currentPage - 1 || number == currentPage + 1 || number == 1 || number == Math.ceil(totalPosts / postsPerPage)) {
-                        if (number == 1) {
+                    if (number === currentPage || number === currentPage - 1 || number === currentPage + 1 || number == 1 || number == Math.ceil(totalPosts / postsPerPage)) {
+                        if (number === 1) {
                             return (
                                 <><li key={number}>
-                                    <button onClick={() => paginate(number)} className={number == currentPage ? 'active' : ''}>{number}</button>
+                                    <button onClick={() => paginate(number)} className={number === currentPage ? 'active' : ''}>{number}</button>
                                 </li>
                                     <li><button disabled>...</button></li></>
                             )

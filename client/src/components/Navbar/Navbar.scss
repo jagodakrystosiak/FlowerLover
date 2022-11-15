@@ -2,6 +2,10 @@
 @import './../../sass/mixins';
 @import './../../sass/animations';
 
+.mt-67 {
+    margin-top: 67px;
+}
+
 .navbar {
     width: 100vw;
     background-color: rgba($color: #FFFFFF, $alpha: 0.95);

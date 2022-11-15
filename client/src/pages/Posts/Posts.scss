@@ -1,0 +1,69 @@
+@import './../../sass/mixins';
+
+.content {
+    margin-top: $grid-base*10;
+    margin-bottom: $grid-base*3;
+    display: block;
+
+    @include x-large-up {
+        grid-template-columns: repeat(4, 1fr);
+        display: grid;
+        grid-gap: $grid-base*2;
+
+        &__list {
+            grid-area: 1 / 2 / 1 / span 3;
+        }
+    }
+
+    & h1 {
+        font-size: $font-size-3;
+        margin-bottom: $grid-base;
+        color: $base-darker-color;
+    }
+
+    &__list {
+        &>ul {
+            background-color: white;
+            padding: $grid-base;
+        }
+
+    }
+
+    &__filter {
+        margin-bottom: $grid-base*2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: $grid-base*3;
+    }
+
+    &__categories {
+
+        &>ul {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            padding: $grid-base;
+
+            &>li {
+                padding: $grid-base*0.5;
+            }
+
+            &>li {
+                margin-left: $grid-base*0.5;
+
+                & button {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__select {
+        margin-left: $grid-base;
+        padding: $grid-base*0.5;
+        background-color: $base-dark-color;
+        border: 1px solid $base-dark-color;
+        outline: none;
+    }
+
+}
