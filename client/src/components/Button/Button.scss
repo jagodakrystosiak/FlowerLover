@@ -60,4 +60,9 @@
         padding: $grid-base $grid-base*2;
         font-size: $font-size-3;
     }
+
+    &--small {
+        padding: $grid-base*0.5 $grid-base*1;
+        font-size: $font-size-8;
+    }
 }

@@ -1,0 +1,19 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
+.articlelist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+
+    .articlebox {
+        width: 100%;
+        margin-bottom: $grid-base*2;
+        @include small-up {
+            width: 48%;
+        }
+        @include medium-up {
+            width: 32%;
+        }
+    }
+}

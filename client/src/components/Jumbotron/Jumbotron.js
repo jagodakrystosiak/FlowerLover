@@ -15,7 +15,7 @@ function Jumbotron({ articles, articlesLenght }) {
             </div>
             <div className="jumbotron__articles">
                 {cardsArticles.map((article) => {
-                    return <a href={"/" + 1}><Card title={article.title}>{article.content}</Card></a>
+                    return <a href={"/article/" + article.id}><Card title={article.title}>{article.content}</Card></a>
                 })}
             </div>
         </div>

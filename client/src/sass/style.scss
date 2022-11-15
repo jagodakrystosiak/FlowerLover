@@ -8,9 +8,13 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-button, input::placeholder {
+button, input::placeholder, select, textarea {
     font-family: 'Montserrat', sans-serif;
 }
+
+.select-selected {
+    background-color: green;
+  }
 
 .container {
     margin: 0 auto;

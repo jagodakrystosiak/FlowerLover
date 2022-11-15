@@ -1,21 +1,23 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import Searchbar from "../Searchbar/Searchbar";
 import './Navbar.scss';
 
-export default function () {
+const Navbar = () => {
     const [showMenuTablet, setShowMenuTablet] = useState(false);
     const [showMenuMobile, setShowMenuMobile] = useState(false);
 
     return (
+        <>
         <div className="navbar">
             <div className="container">
                 <nav>
-                    <h1 className="navbar__logo">Logo strony</h1>
+                    <h1 className="navbar__logo"><Link to="/">Logo strony</Link></h1>
                     <ul className="navbar__nav">
-                        <li><a href='/article'>Porady</a></li>
-                        <li><a href='/post'>Forum</a></li>
-                        <li><a href='/plant'>Rośliny</a></li>
+                        <li><Link to='/articles'>Porady</Link></li>
+                        <li><Link to="/posts">Forum</Link></li>
+                        <li><Link to='/plants'>Rośliny</Link></li>
                     </ul>
                     <p className="navbar__search"><Searchbar></Searchbar></p>
                     <ul className="navbar__user">
@@ -25,9 +27,9 @@ export default function () {
                     <div className="navbar--tablet">
                         <button onClick={() => setShowMenuTablet(!showMenuTablet)}><i class="fa-solid fa-bars"></i></button>
                         <ul id="navTablet" className={showMenuTablet ? "display-block" : "display-none"}>
-                            <li><a href='/article'>Porady</a></li>
-                            <li><a href='/post'>Forum</a></li>
-                            <li><a href='/plant'>Rośliny</a></li>
+                            <li><Link to='/articles'>Porady</Link></li>
+                            <li><Link to="/posts">Forum</Link></li>
+                            <li><Link to='/plants'>Rośliny</Link></li>
                             <li><Button className="btn--lighter">Zaloguj się</Button></li>
                             <li><Button className="btn--dark">Zarejestruj się</Button></li>
                         </ul>
@@ -36,9 +38,9 @@ export default function () {
                         <button onClick={() => setShowMenuMobile(!showMenuMobile)}><i class="fa-solid fa-bars"></i></button>
                         <ul id="navMoblie" className={showMenuMobile ? "display-block" : "display-none"}>
                             <Searchbar></Searchbar>
-                            <li><a href='/article'>Porady</a></li>
-                            <li><a href='/post'>Forum</a></li>
-                            <li><a href='/plant'>Rośliny</a></li>
+                            <li><Link to='/articles'>Porady</Link></li>
+                            <li><Link to="/posts">Forum</Link></li>
+                            <li><Link to='/plants'>Rośliny</Link></li>
                             <li><Button className="btn--lighter">Zaloguj się</Button></li>
                             <li><Button className="btn--dark">Zarejestruj się</Button></li>
                         </ul>
@@ -46,5 +48,9 @@ export default function () {
                 </nav>
             </div>
         </div>
+        <div className="mt-67"></div>
+        </>
     );
 }
+
+export default Navbar;

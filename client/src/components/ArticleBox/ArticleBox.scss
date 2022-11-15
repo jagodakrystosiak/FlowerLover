@@ -1,0 +1,28 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
+.articlebox {
+
+    & a {
+        cursor: pointer;
+    }
+
+    &__text {
+        background-color: white;
+        padding: $grid-base;
+        padding-bottom: $grid-base*4;
+        text-align: center;
+    }
+
+    &__img {
+        width: 100%;
+        height: auto;
+        box-shadow: $box-shadow-inset-white;
+
+        & img {
+            height: auto;
+            position: relative;
+            z-index: -2;
+        }
+    }
+}

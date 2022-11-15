@@ -59,9 +59,19 @@
 
     &__author {
         font-weight: bold;
+        margin-top: 2.5px;
 
         & span {
             color: red;
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+
+        & .btn {
+            margin-left: 2.5px;
         }
     }
 }
