@@ -32,8 +32,6 @@ function Carousel({ articles }) {
         if (slideIndex >= articles.length-1) { setSlideIndex(0) };
     }
 
-    console.log(slideIndex);
-
     return (
         <div className='carousel'>
             <div className="carousel__container">

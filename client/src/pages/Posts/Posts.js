@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import './Posts.scss';
 import Searchbar from "../../components/Searchbar/Searchbar";
 import PostBox from "../../components/PostBox/PostBox";
+import HttpClient from "../../services/HttpClient";
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
@@ -20,23 +21,24 @@ const Posts = () => {
         getTags();
     }, [sortType, wordToFind]);
 
-    const getPosts = () => {
-        setLoading(true);
-        let posts = [];
-        for (let i = 0; i < 150; i++) {
+    const getPosts = async () => {
+        const { data } = await HttpClient().get('http://localhost:8080/posts/all');
+        console.log({ data });
+        let posts = data;
+        /*for (let i = 0; i < 150; i++) {
             posts[i] = {
-                id: i+1,
+                id: i + 1,
                 title: "Post nr " + (i + 1),
                 content: "Witam Czy wiedzą może państwo co to za szkodnik zaatakował tę monsterę? Liście bardzo poniszczone są, tracą barwę i dużo drobnych blizn (puntowych). Ja się go pozbyć?",
                 author: "roslinki123",
-                date: new Date(2000+i/10, 9, 22, 18, 10, 13)
+                date: new Date(2000 + i / 10, 9, 22, 18, 10, 13)
             };
-        };
-        if(wordToFind != ""){
+        };*/
+        if (wordToFind != "") {
             let filteredPosts = [];
-            let i=0;
+            let i = 0;
             posts.forEach((post) => {
-                if(post.title.includes(wordToFind) || post.content.includes(wordToFind)){
+                if (post.title.includes(wordToFind) || post.content.includes(wordToFind)) {
                     filteredPosts[i] = post;
                     i++;
                 }
@@ -44,13 +46,15 @@ const Posts = () => {
             posts = filteredPosts;
         }
         setPosts(posts.sort(sortPosts));
-        setLoading(false);
     }
 
     const getTags = () => {
         let tags = [];
         for (let i = 0; i < 50; i++) {
-            tags[i] = "Tag" + i;
+            tags[i] = {
+                id: i + 1,
+                name: "Tag" + i
+            };
         }
         setTags(tags);
     }
@@ -62,15 +66,15 @@ const Posts = () => {
                 else return -1;
                 break;
             case 'newest':
-                if (a.date.valueOf() < b.date.valueOf()) return 1;
+                if (a.createDate.valueOf() < b.createDate.valueOf()) return 1;
                 else return -1;
                 break;
             case 'oldest':
-                if (a.date.valueOf() > b.date.valueOf()) return 1;
+                if (a.createDate.valueOf() > b.createDate.valueOf()) return 1;
                 else return -1;
                 break;
             default:
-                if (a.date.valueOf() < b.date.valueOf()) return 1;
+                if (a.createDate.valueOf() < b.createDate.valueOf()) return 1;
                 else return -1;
                 break;
 
@@ -92,7 +96,11 @@ const Posts = () => {
             <div className="content__categories">
                 <h1>Kategorie</h1>
                 <ul>
-                    {tags.map((tag, index) => <li><Button className={index % 3 == 1 ? "btn--dark" : "btn--lighter"}>{tag}</Button></li>)}
+                    {tags.map((tag, index) => <li>
+                        <a href={"/category/" + tag.id}>
+                            <Button className={index % 2 == 1 ? "btn--dark" : "btn--lighter"}>{tag.name}</Button>
+                        </a>
+                    </li>)}
                 </ul>
             </div>
             <div className="content__list">
