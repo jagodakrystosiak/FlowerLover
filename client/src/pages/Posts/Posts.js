@@ -9,7 +9,7 @@ import HttpClient from "../../services/HttpClient";
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
-    const [tags, setTags] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(10);
@@ -17,23 +17,14 @@ const Posts = () => {
     const [wordToFind, setWordToFind] = useState("");
 
     useEffect(() => {
+        getCategories();
         getPosts();
-        getTags();
     }, [sortType, wordToFind]);
 
     const getPosts = async () => {
-        const { data } = await HttpClient().get('http://localhost:8080/posts/all');
+        const { data } = await HttpClient().get('/posts/all');
         console.log({ data });
         let posts = data;
-        /*for (let i = 0; i < 150; i++) {
-            posts[i] = {
-                id: i + 1,
-                title: "Post nr " + (i + 1),
-                content: "Witam Czy wiedzą może państwo co to za szkodnik zaatakował tę monsterę? Liście bardzo poniszczone są, tracą barwę i dużo drobnych blizn (puntowych). Ja się go pozbyć?",
-                author: "roslinki123",
-                date: new Date(2000 + i / 10, 9, 22, 18, 10, 13)
-            };
-        };*/
         if (wordToFind != "") {
             let filteredPosts = [];
             let i = 0;
@@ -47,16 +38,12 @@ const Posts = () => {
         }
         setPosts(posts.sort(sortPosts));
     }
+    console.log(posts);
 
-    const getTags = () => {
-        let tags = [];
-        for (let i = 0; i < 50; i++) {
-            tags[i] = {
-                id: i + 1,
-                name: "Tag" + i
-            };
-        }
-        setTags(tags);
+    const getCategories = async () => {
+        const { data } = await HttpClient().get('/categories/all');
+        let categories = data;
+        setCategories(categories);
     }
 
     const sortPosts = (a, b) => {
@@ -64,20 +51,15 @@ const Posts = () => {
             case 'title':
                 if (a.title > b.title) return 1;
                 else return -1;
-                break;
             case 'newest':
                 if (a.createDate.valueOf() < b.createDate.valueOf()) return 1;
                 else return -1;
-                break;
             case 'oldest':
                 if (a.createDate.valueOf() > b.createDate.valueOf()) return 1;
                 else return -1;
-                break;
             default:
                 if (a.createDate.valueOf() < b.createDate.valueOf()) return 1;
                 else return -1;
-                break;
-
         }
     }
 
@@ -91,14 +73,27 @@ const Posts = () => {
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
+    for (let i = 0; i < posts.length; i++) {
+        for(let j=0; j<categories.length; j++){
+            var newCategories = [];
+            if(posts[i].hasOwnProperty("categories")) newCategories = posts[i].categories;
+            if(!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)){
+                
+                newCategories[newCategories.length] = categories[j];
+                console.log("xd");
+            }
+            posts[i] = {...posts[i], categories: newCategories};
+        }
+    };
+
     return (
         <div className="container content">
             <div className="content__categories">
                 <h1>Kategorie</h1>
                 <ul>
-                    {tags.map((tag, index) => <li>
-                        <a href={"/category/" + tag.id}>
-                            <Button className={index % 2 == 1 ? "btn--dark" : "btn--lighter"}>{tag.name}</Button>
+                    {categories.map((category, index) => <li>
+                        <a href={"/category/" + category.id}>
+                            <Button className={index % 2 == 1 ? "btn--dark" : "btn--lighter"}>{category.name}</Button>
                         </a>
                     </li>)}
                 </ul>

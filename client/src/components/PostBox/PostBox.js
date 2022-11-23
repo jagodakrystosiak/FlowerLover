@@ -29,19 +29,12 @@ return (
             <a href={"/post/" + post.id}><h2 className="postbox__title">{post.title}</h2></a>
             <p className="postbox__content">{post.content.substring(0,150)} ... </p>
             <div className="postbox__bottom">
-                <p className="postbox__author">autor: <a href="/">{post.author}</a> {date}</p>
+                <p className="postbox__author">autor: <a href="/">{post.username}</a> {date}</p>
                 <div>
-                    <Button className="btn--light btn--small">Tag</Button>
-                    <Button className="btn--light btn--small">Tag</Button>
-                    <Button className="btn--light btn--small">Tag</Button>
+                    {post.categories?.map((category) => <Button className="btn--light btn--small">{category.name}</Button>)}
                 </div>
             </div>
         </div>
-        {/*<div className="postbox__statistic">
-            <p><span>{props.post.votes}</span> głosów</p>
-            <p>{props.post.answers} odpowiedzi</p>
-            <p>{props.post.views} wyświetleń</p>
-        </div>*/}
     </div>
 )
 }

@@ -1,0 +1,12 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
+.plantlist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1%;
+
+    & .plantbox{
+        width: 24%;
+    } 
+}
