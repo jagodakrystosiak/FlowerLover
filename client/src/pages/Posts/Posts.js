@@ -15,17 +15,17 @@ const Posts = () => {
     const [postsPerPage, setPostsPerPage] = useState(10);
     const [sortType, setSortType] = useState("");
     const [wordToFind, setWordToFind] = useState("");
+    const [filtrByCategory, setFiltrByCategory] = useState(null);
 
     useEffect(() => {
         getCategories();
         getPosts();
-    }, [sortType, wordToFind]);
+    }, [sortType, wordToFind, filtrByCategory]);
 
     const getPosts = async () => {
         const { data } = await HttpClient().get('/posts/all');
-        console.log({ data });
         let posts = data;
-        if (wordToFind != "") {
+        if (wordToFind !== "") {
             let filteredPosts = [];
             let i = 0;
             posts.forEach((post) => {
@@ -36,9 +36,19 @@ const Posts = () => {
             });
             posts = filteredPosts;
         }
+        if(filtrByCategory !== null){
+            let filteredPosts = [];
+            let i = 0;
+            posts.forEach((post) => {
+                if (post.categoriesIds.includes(filtrByCategory.id)) {
+                    filteredPosts[i] = post;
+                    i++;
+                }
+            });
+            posts = filteredPosts;
+        }
         setPosts(posts.sort(sortPosts));
     }
-    console.log(posts);
 
     const getCategories = async () => {
         const { data } = await HttpClient().get('/categories/all');
@@ -66,6 +76,7 @@ const Posts = () => {
     const handlePostsPerPageChange = (event) => setPostsPerPage(event.target.value);
     const handleSortPosts = (event) => setSortType(event.target.value);
     const handleSearchPosts = (event) => setWordToFind(event.target.value);
+    const handleCategoryButtonClick = (category) => { filtrByCategory===category ? setFiltrByCategory(null)  : setFiltrByCategory(categories.find((element) => element === category));};
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -78,23 +89,20 @@ const Posts = () => {
             var newCategories = [];
             if(posts[i].hasOwnProperty("categories")) newCategories = posts[i].categories;
             if(!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)){
-                
                 newCategories[newCategories.length] = categories[j];
-                console.log("xd");
             }
             posts[i] = {...posts[i], categories: newCategories};
         }
     };
+    console.log(posts);
 
     return (
         <div className="container content">
             <div className="content__categories">
                 <h1>Kategorie</h1>
                 <ul>
-                    {categories.map((category, index) => <li>
-                        <a href={"/category/" + category.id}>
-                            <Button className={index % 2 == 1 ? "btn--dark" : "btn--lighter"}>{category.name}</Button>
-                        </a>
+                    {categories.map((category, index) => <li key={index}>
+                            <Button className={filtrByCategory===category ? (index % 2 === 1 ? "btn--darker" : "btn--light") : (index % 2 === 1 ? "btn--dark" : "btn--lighter")} onClick={() => handleCategoryButtonClick(category)}>{category.name}</Button>
                     </li>)}
                 </ul>
             </div>
