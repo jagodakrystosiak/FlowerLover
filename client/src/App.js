@@ -48,6 +48,8 @@ const App = () => {
                         <Route exact path="/posts" element={<Posts />} />
                         <Route exact path="/post/:id" element={<ShowPost />} />
                         <Route exact path="/plants" element={<Plants />} />
+                        <Route path="/register" element={<Register />} exact />
+                    <Route path="/login" element={<Login />} exact />
                     </Routes>
                 </Suspense>
                 <Footer />
