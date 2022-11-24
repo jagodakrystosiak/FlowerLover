@@ -12,6 +12,8 @@ import Articles from "./pages/Articles/Articles";
 import Plants from "./pages/Plants/Plants";
 import ShowPost from "./pages/Post/Show/ShowPost";
 import ShowArticle from "./pages/Article/Show/ShowArticle";
+import Register from "./pages/Authorization/Register/Register";
+import Login from "./pages/Authorization/Login/Login";
 
 const App = () => {
     return (
@@ -25,6 +27,8 @@ const App = () => {
                     <Route path="/posts" element={<Posts />} exact />
                     <Route path="/post/:id" element={<ShowPost />} exact />
                     <Route path="/plants" element={<Plants />} exact />
+                    <Route path="/register" element={<Register />} exact />
+                    <Route path="/login" element={<Login />} exact />
                 </Routes>
                 <Footer />
             </Router>
