@@ -3,26 +3,56 @@
 
 
 .article {
-    max-width: 1200px;
-    margin: $grid-base auto $grid-base*3 auto;
+    width: 100%;
+    margin: $grid-base 0 $grid-base*3 0;
+
+    @include x-large-up {
+        width: auto;
+        max-width: 800px;
+    }
+
+    @include xx-large-up {
+        max-width: 1000px;
+    }
+
+    &__container {
+        display: block;
+
+        @include x-large-up {
+            display: flex;
+        }
+    }
 
     &__categories{
-        margin-top: $grid-base*9;
+        margin-top: $grid-base*8;
         margin-bottom: $grid-base;
         display: flex;
         flex-wrap: wrap;
         gap: $grid-base*0.5;
+
+        @include medium-up {
+            margin-top: $grid-base*9;
+        }
+
+        @include x-large-up {
+            margin-top: $grid-base;
+        }
     }
 
     & img {
         margin-bottom: -5px;
+        background-color: $white-color;
     }
 
     &__box {
         background-color: $white-color;
+        padding: $grid-base*2;
         
-        @include medium-up {
-            padding: $grid-base;
+        
+
+        & a {
+            font-weight: bold;
+            color: $base-light-color;
         }
     }
 
@@ -33,6 +63,46 @@
     }
 
     &__content {
-        padding: $grid-base;
+        @include medium-up {
+            padding: $grid-base*2;
+        }
+    }
+
+
+    &__similar {
+        display: block;
+
+        @include medium-up { 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        @include x-large-up {
+            display: block;
+        }
+
+        &>div {
+            width: 100%;
+            margin-bottom: $grid-base*2;
+
+            &:first-child {
+                margin-top: 0;
+
+                @include x-large-up {
+                    margin-top: $grid-base*5.3;
+                }
+            }
+
+            @include medium-up {
+                width: 49%;
+                margin-bottom: $grid-base*2;
+            }
+
+            @include x-large-up {
+                width: 90%;
+                margin: $grid-base*2 0 0 $grid-base*2;
+            }
+        }
     }
 }

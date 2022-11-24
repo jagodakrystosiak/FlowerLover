@@ -32,7 +32,7 @@ function Home() {
                 title: "Post nr " + (i + 1),
                 content: "Witam Czy wiedzą może państwo co to za szkodnik zaatakował tę monsterę? Liście bardzo poniszczone są, tracą barwę i dużo drobnych blizn (puntowych). Ja się go pozbyć?",
                 author: "roslinki123",
-                date: new Date(2022, 9, 22, 18, 10, 13)
+                createDate: new Date(2022, 9, 22, 18, 10, 13)
             };
         };
         setPosts(posts);
@@ -46,7 +46,8 @@ function Home() {
                 id: i+1,
                 title: "Artykuł nr" + (i + 1),
                 content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.",
-                img: "https://source.unsplash.com/random/1000x500?sig=" + i
+                img: "https://source.unsplash.com/random/1000x500?sig=" + i,
+                createDate: new Date(2022, 9, 22, 18, 10, 13)
             };
         };
         setArticles(articles);

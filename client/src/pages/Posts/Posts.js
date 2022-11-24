@@ -5,38 +5,42 @@ import Button from "../../components/Button/Button";
 import './Posts.scss';
 import Searchbar from "../../components/Searchbar/Searchbar";
 import PostBox from "../../components/PostBox/PostBox";
+import HttpClient from "../../services/HttpClient";
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
-    const [tags, setTags] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(10);
     const [sortType, setSortType] = useState("");
     const [wordToFind, setWordToFind] = useState("");
+    const [filtrByCategory, setFiltrByCategory] = useState(null);
 
     useEffect(() => {
+        getCategories();
         getPosts();
-        getTags();
-    }, [sortType, wordToFind]);
+    }, [sortType, wordToFind, filtrByCategory]);
 
-    const getPosts = () => {
-        setLoading(true);
-        let posts = [];
-        for (let i = 0; i < 150; i++) {
-            posts[i] = {
-                id: i+1,
-                title: "Post nr " + (i + 1),
-                content: "Witam Czy wiedzą może państwo co to za szkodnik zaatakował tę monsterę? Liście bardzo poniszczone są, tracą barwę i dużo drobnych blizn (puntowych). Ja się go pozbyć?",
-                author: "roslinki123",
-                date: new Date(2000+i/10, 9, 22, 18, 10, 13)
-            };
-        };
-        if(wordToFind != ""){
+    const getPosts = async () => {
+        const { data } = await HttpClient().get('/posts/all');
+        let posts = data;
+        if (wordToFind !== "") {
             let filteredPosts = [];
-            let i=0;
+            let i = 0;
             posts.forEach((post) => {
-                if(post.title.includes(wordToFind) || post.content.includes(wordToFind)){
+                if (post.title.includes(wordToFind) || post.content.includes(wordToFind)) {
+                    filteredPosts[i] = post;
+                    i++;
+                }
+            });
+            posts = filteredPosts;
+        }
+        if(filtrByCategory !== null){
+            let filteredPosts = [];
+            let i = 0;
+            posts.forEach((post) => {
+                if (post.categoriesIds.includes(filtrByCategory.id)) {
                     filteredPosts[i] = post;
                     i++;
                 }
@@ -44,15 +48,12 @@ const Posts = () => {
             posts = filteredPosts;
         }
         setPosts(posts.sort(sortPosts));
-        setLoading(false);
     }
 
-    const getTags = () => {
-        let tags = [];
-        for (let i = 0; i < 50; i++) {
-            tags[i] = "Tag" + i;
-        }
-        setTags(tags);
+    const getCategories = async () => {
+        const { data } = await HttpClient().get('/categories/all');
+        let categories = data;
+        setCategories(categories);
     }
 
     const sortPosts = (a, b) => {
@@ -60,26 +61,22 @@ const Posts = () => {
             case 'title':
                 if (a.title > b.title) return 1;
                 else return -1;
-                break;
             case 'newest':
-                if (a.date.valueOf() < b.date.valueOf()) return 1;
+                if (a.createDate.valueOf() < b.createDate.valueOf()) return 1;
                 else return -1;
-                break;
             case 'oldest':
-                if (a.date.valueOf() > b.date.valueOf()) return 1;
+                if (a.createDate.valueOf() > b.createDate.valueOf()) return 1;
                 else return -1;
-                break;
             default:
-                if (a.date.valueOf() < b.date.valueOf()) return 1;
+                if (a.createDate.valueOf() < b.createDate.valueOf()) return 1;
                 else return -1;
-                break;
-
         }
     }
 
     const handlePostsPerPageChange = (event) => setPostsPerPage(event.target.value);
     const handleSortPosts = (event) => setSortType(event.target.value);
     const handleSearchPosts = (event) => setWordToFind(event.target.value);
+    const handleCategoryButtonClick = (category) => { filtrByCategory===category ? setFiltrByCategory(null)  : setFiltrByCategory(categories.find((element) => element === category));};
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -87,12 +84,26 @@ const Posts = () => {
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
+    for (let i = 0; i < posts.length; i++) {
+        for(let j=0; j<categories.length; j++){
+            var newCategories = [];
+            if(posts[i].hasOwnProperty("categories")) newCategories = posts[i].categories;
+            if(!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)){
+                newCategories[newCategories.length] = categories[j];
+            }
+            posts[i] = {...posts[i], categories: newCategories};
+        }
+    };
+    console.log(posts);
+
     return (
         <div className="container content">
             <div className="content__categories">
                 <h1>Kategorie</h1>
                 <ul>
-                    {tags.map((tag, index) => <li><Button className={index % 3 == 1 ? "btn--dark" : "btn--lighter"}>{tag}</Button></li>)}
+                    {categories.map((category, index) => <li key={index}>
+                            <Button className={filtrByCategory===category ? (index % 2 === 1 ? "btn--darker" : "btn--light") : (index % 2 === 1 ? "btn--dark" : "btn--lighter")} onClick={() => handleCategoryButtonClick(category)}>{category.name}</Button>
+                    </li>)}
                 </ul>
             </div>
             <div className="content__list">
