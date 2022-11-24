@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const HttpClient = () => {
-    const token = null;
-    //localStorage.getItem('token');
+    var token = null;
+    if(localStorage.getItem('token')) token=localStorage.getItem('token');
     const defaultOptions = {
         headers: {
             Authorization: token ? `Bearer ${token}` : null
