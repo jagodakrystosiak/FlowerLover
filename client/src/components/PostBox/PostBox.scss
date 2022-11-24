@@ -66,7 +66,9 @@
         margin-top: 2.5px;
 
         & span {
-            color: red;
+            margin-left: $grid-base*.5;
+            color: $gray-color;
+            font-weight: normal;
         }
     }
 
