@@ -25,16 +25,6 @@ const Articles = () => {
         const { data } = await HttpClient().get('http://localhost:8080/articles/all');
         console.log({ data });
         let articles = data;
-        //Przykład do testowania
-        /*for (let i = 0; i < 100; i++) {
-            articles[i] = {
-                id: i + 1,
-                title: "Artykuł nr" + (i + 1),
-                content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione. Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sint reprehenderit illum enim eum. Odit sapiente numquam accusamus aut ratione.",
-                date: new Date(2000 + i / 10, 9, 22, 18, 10, 13),
-                img: "https://source.unsplash.com/random/1000x500?sig=" + i
-            };
-        };*/
         if (wordToFind != "") {
             let filteredArticles = [];
             let i = 0;
@@ -49,14 +39,9 @@ const Articles = () => {
         setArticles(articles.sort(sortArticles));
     }
 
-    const getCategories = () => {
-        let categories = [];
-        for (let i = 0; i < 50; i++) {
-            categories[i] = {
-                id: i + 1,
-                name: "Kategoria" + i
-            };
-        };
+    const getCategories = async () => {
+        const { data } = await HttpClient().get('/categories/all');
+        let categories = data;
         setCategories(categories);
     }
 
@@ -92,6 +77,18 @@ const Articles = () => {
     const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
     const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
 
+    for (let i = 0; i < articles.length; i++) {
+        for(let j=0; j<categories.length; j++){
+            var newCategories = [];
+            if(articles[i].hasOwnProperty("categories")) newCategories = articles[i].categories;
+            if(!newCategories.includes(categories[j]) && articles[i].hasOwnProperty("categoriesIds") && articles[i].categoriesIds !== null && articles[i].categoriesIds.includes(categories[j].id)){
+                
+                newCategories[newCategories.length] = categories[j];
+                console.log("xd");
+            }
+            articles[i] = {...articles[i], categories: newCategories};
+        }
+    };
 
     return (
         <div className="container content">
