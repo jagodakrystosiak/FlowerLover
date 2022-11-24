@@ -53,6 +53,10 @@
         }
     }
 
+    &__post {
+        width: 100%;
+    }
+
     &__title {
         margin: $grid-base 0;
     }
@@ -62,7 +66,9 @@
         margin-top: 2.5px;
 
         & span {
-            color: red;
+            margin-left: $grid-base*.5;
+            color: $gray-color;
+            font-weight: normal;
         }
     }
 

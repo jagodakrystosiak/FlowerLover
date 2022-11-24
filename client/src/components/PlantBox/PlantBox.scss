@@ -1,0 +1,28 @@
+@import './../../sass/mixins';
+@import './../../sass/variables';
+
+.plantbox {
+
+    &__img {
+        width: 100%;
+        height: 400px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        &:hover .plantbox__desc {
+            display: block;
+            transition: all 10s;
+        }
+    }
+
+    &__desc {
+        color: $white-color;
+        background-color: rgba(0, 0, 0, 0.75);
+        height: 100%;
+        text-align: center;
+        padding: $grid-base*10 $grid-base*4;
+        display: none;
+        transition: all 10s;
+    }
+}

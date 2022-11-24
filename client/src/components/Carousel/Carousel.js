@@ -32,8 +32,6 @@ function Carousel({ articles }) {
         if (slideIndex >= articles.length-1) { setSlideIndex(0) };
     }
 
-    console.log(slideIndex);
-
     return (
         <div className='carousel'>
             <div className="carousel__container">
@@ -42,7 +40,7 @@ function Carousel({ articles }) {
                     return (
                         <div className={"mySlides fade " + (index==slideIndex ? "display-block" : "display-none")}>
                             <div className="carousel__numbertext">{index+1} / {articles.length}</div>
-                            <div className='carousel__img'><img src={article.img} /></div>
+                            <div className='carousel__img'><img src={article.img} alt="Image for the article" /></div>
                             <div className="carousel__text">
                                 <h2>{article.title}</h2>
                                 <p>{article.content.substring(0,150)} ... </p>
