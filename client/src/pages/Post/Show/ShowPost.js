@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import './ShowPost.scss';
+import useAxiosPrivate from "./../../../hooks/useAxiosPrivate";
+import AppContext from "../../../contexts/AppContext";
+import HttpClient from "../../../services/HttpClient";
 
 const ShowPost = () => {
+    const { auth } = useContext(AppContext);
+    const { id } = useParams();
+    const axiosPrivate = useAxiosPrivate();
     const [post, setPost] = useState(null);
     const [user, setUser] = useState(null);
     const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState("");
     const [commentsAuthor, setCommentsAuthors] = useState([]);
 
     useEffect(() => {
         getPost();
-    }, []);
+    }, [id]);
 
 
-    const getPost = () => {
-        setPost({
-            title: "Tytuł: Aenean et tortor at risus viverra adipiscing. Mattis rhoncus urna neque viverra justo nec ultrices dui sapien. Dolor magna eget.",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget nullam non nisi est sit amet facilisis magna etiam. Fusce ut placerat orci nulla pellentesque dignissim. Felis eget nunc lobortis mattis aliquam faucibus purus. Viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor. Placerat orci nulla pellentesque dignissim enim sit. Bibendum enim facilisis gravida neque convallis. Id donec ultrices tincidunt arcu. Gravida in fermentum et sollicitudin ac orci. Praesent tristique magna sit amet purus gravida. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat. Quis vel eros donec ac odio tempor orci. Libero id faucibus nisl tincidunt eget nullam non nisi. Odio facilisis mauris sit amet massa vitae tortor condimentum. Dapibus ultrices in iaculis nunc sed augue lacus viverra vitae. Sodales ut etiam sit amet nisl purus in mollis. Urna porttitor rhoncus dolor purus.",
-            create_date: new Date(2000, 9, 22, 18, 10, 13)
-        });
-        getUser();
+    const getPost = async () => {
+        const { data } = auth ? await axiosPrivate.get("/posts/?postId=" + id) : await HttpClient().get("/posts/?postId=" + id);
+        console.log(data);
+        setPost(data);
         getComments();
     };
-
-    const getUser = () => {
-        setUser({
-            id: 1,
-            username: "roslinki123"
-        });
-    }
 
     const getComments = () => {
         setComments([
@@ -77,9 +75,18 @@ const ShowPost = () => {
         return date;
     }
 
+    const onSubmit = async () => {
+        const data = {
+            content: comment,
+            postId: id,
+            username: auth.username
+        }
+        await axiosPrivate.post("/comment/new-comment", data);
+    }
+
     return (
         <div className="container">
-            {post !== null && user != null ?
+            {post !== null ?
                 <div className="post">
                     <div className="post__categories">
                         <Button className="btn--light btn--small">Kategoria</Button>
@@ -88,16 +95,16 @@ const ShowPost = () => {
                     </div>
                     <div className="post__box">
                     <p className="post__date">{createDate(post)}</p>
-                    <p className="post__author"><a href={"/user/" + user.id}>{user.username}</a> pisze:</p>
+                    <p className="post__author">{post.username} pisze:</p>
                     <h2 className="post__title">{post.title}</h2>
                     <p className="post__content">{post.content}</p>
                     <h1>Komentarze</h1>
                     <div className="post-divide"></div>
-                    <form className="post__add-comment">
-                        <textarea placeholder="Wprowadź komentarz ..."></textarea>
-                        <Button className="btn--light btn--small">Dodaj</Button>
+                    {auth ? <form className="post__add-comment" onSubmit={onSubmit}>
+                        <textarea onChange={(event) => setComment(event.target.value)} placeholder="Wprowadź komentarz ..."></textarea>
+                        <Button type="submit" className="btn--light btn--small">Dodaj</Button>
                         <Button type="reset" className="btn--lighter btn--small">Anuluj</Button>
-                    </form>
+                    </form>: <p>Zaloguj się, aby dodawać komentarze</p>}
                     {comments !== null && commentsAuthor !== null ?
                         <ul className="post__comments">
                             {comments.map((comment, index) =>

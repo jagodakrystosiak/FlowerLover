@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PostsList from "../../components/PostsList/PostsList";
 import Pagination from '../../components/Pagination/Pagination';
 import Button from "../../components/Button/Button";
@@ -6,8 +6,10 @@ import './Posts.scss';
 import Searchbar from "../../components/Searchbar/Searchbar";
 import PostBox from "../../components/PostBox/PostBox";
 import HttpClient from "../../services/HttpClient";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Posts = () => {
+    const axiosPrivate = useAxiosPrivate();
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const Posts = () => {
     }, [sortType, wordToFind, filtrByCategory]);
 
     const getPosts = async () => {
-        const { data } = await HttpClient().get('/posts/all');
+        const { data } = await axiosPrivate.get('/posts/all');
         let posts = data;
         if (wordToFind !== "") {
             let filteredPosts = [];
@@ -36,7 +38,7 @@ const Posts = () => {
             });
             posts = filteredPosts;
         }
-        if(filtrByCategory !== null){
+        if (filtrByCategory !== null) {
             let filteredPosts = [];
             let i = 0;
             posts.forEach((post) => {
@@ -51,7 +53,7 @@ const Posts = () => {
     }
 
     const getCategories = async () => {
-        const { data } = await HttpClient().get('/categories/all');
+        const { data } = await axiosPrivate.get('/categories/all');
         let categories = data;
         setCategories(categories);
     }
@@ -76,7 +78,7 @@ const Posts = () => {
     const handlePostsPerPageChange = (event) => setPostsPerPage(event.target.value);
     const handleSortPosts = (event) => setSortType(event.target.value);
     const handleSearchPosts = (event) => setWordToFind(event.target.value);
-    const handleCategoryButtonClick = (category) => { filtrByCategory===category ? setFiltrByCategory(null)  : setFiltrByCategory(categories.find((element) => element === category));};
+    const handleCategoryButtonClick = (category) => { filtrByCategory === category ? setFiltrByCategory(null) : setFiltrByCategory(categories.find((element) => element === category)); };
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -85,13 +87,13 @@ const Posts = () => {
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
     for (let i = 0; i < posts.length; i++) {
-        for(let j=0; j<categories.length; j++){
+        for (let j = 0; j < categories.length; j++) {
             var newCategories = [];
-            if(posts[i].hasOwnProperty("categories")) newCategories = posts[i].categories;
-            if(!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)){
+            if (posts[i].hasOwnProperty("categories")) newCategories = posts[i].categories;
+            if (!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)) {
                 newCategories[newCategories.length] = categories[j];
             }
-            posts[i] = {...posts[i], categories: newCategories};
+            posts[i] = { ...posts[i], categories: newCategories };
         }
     };
     console.log(posts);
@@ -102,12 +104,13 @@ const Posts = () => {
                 <h1>Kategorie</h1>
                 <ul>
                     {categories.map((category, index) => <li key={index}>
-                            <Button className={filtrByCategory===category ? (index % 2 === 1 ? "btn--darker" : "btn--light") : (index % 2 === 1 ? "btn--dark" : "btn--lighter")} onClick={() => handleCategoryButtonClick(category)}>{category.name}</Button>
+                        <Button className={filtrByCategory === category ? (index % 2 === 1 ? "btn--darker" : "btn--light") : (index % 2 === 1 ? "btn--dark" : "btn--lighter")} onClick={() => handleCategoryButtonClick(category)}>{category.name}</Button>
                     </li>)}
+                    {filtrByCategory ? <li><a onClick={() => setFiltrByCategory(null)}>Wszystkie kategorie</a></li> : ""}
                 </ul>
             </div>
             <div className="content__list">
-                <h1>Posty</h1>
+                <h1>Posty {filtrByCategory ? " w kategorii: " + filtrByCategory.name : ""}</h1>
                 <div className="content__filter">
                     <Searchbar onChange={(event) => handleSearchPosts(event)} />
                     <p>Sortuj
@@ -124,6 +127,7 @@ const Posts = () => {
                             <option value="30">30</option>
                         </select>
                     </p>
+                    {auth ? <a href="/post/create">Utwórz nowy post</a> : ""}
                 </div>
                 <PostsList posts={currentPosts} postsLenght={currentPosts.length} loading={loading} />
                 <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} currentPage={currentPage} paginate={paginate} />

@@ -6,6 +6,8 @@ import './sass/style.scss';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import HttpClient from "./services/HttpClient";
+import RequireAuth from "./components/RequireAuth.js/RequireAuth";
+import CreatePost from "./pages/Post/Create/CreatePost";
 
 //Funkcja lazy importuje komponenty dopiero kiedy wybierzemy odpowiedni routing
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -36,22 +38,38 @@ const App = () => {
 
     return (
         <>
-            <Router>
-                <Navbar />
-                {/* Podczas importu komponentu wyświetla podaną funkcję */}
-                <Suspense fallback={() => <h1>Loading ...</h1>}>
-                    <Routes>
-                        <Route path="*" element={<Navigate to="/" />} />
-                        <Route exact path="/" element={<Home />} />
-                        <Route exact path="/articles" element={<Articles />} />
-                        <Route exact path="/article/:id" element={<ShowArticle />} />
-                        <Route exact path="/posts" element={<Posts />} />
-                        <Route exact path="/post/:id" element={<ShowPost />} />
-                        <Route exact path="/plants" element={<Plants />} />
-                    </Routes>
-                </Suspense>
-                <Footer />
-            </Router>
+            {isInitiated && (
+                <AppContext.Provider value={{ auth, setAuth, logout }}>
+                <Router>
+                    <Navbar />
+                    {/* Podczas importu komponentu wyświetla podaną funkcję */}
+                    <Suspense fallback={() => <h1>Loading ...</h1>}>
+                        <Routes>
+                            <Route path="*" element={<Navigate to="/" />} />
+                            <Route exact path="/" element={<Home />} />
+                            <Route exact path="/articles" element={<Articles />} />
+                            <Route exact path="/article/:id" element={<ShowArticle />} />
+                            <Route exact path="/posts" element={<Posts />} />
+                            <Route exact path="/post/:id" element={<ShowPost />} />
+                            <Route exact path="/plants" element={<Plants />} />
+                            <Route exact path="/register" element={<Register />} />
+                            <Route exact path="/login" element={<Login />} />
+
+                            {/* Scieżki tylko dla zalogowanych użytkowników*/}
+                            <Route element={<RequireAuth allowedRoles={"ROLE_USER"}/>}>
+                                <Route exact path="/post/create" element={<CreatePost/>}/>
+                            </Route>
+                            {/* Scieżki tylko dla adminów */}
+                            <Route element={<RequireAuth allowedRoles={"ROLE_ADMIN"}/>}>
+
+                            </Route>
+                        </Routes>
+                    </Suspense>
+                    <Footer />
+                </Router>
+                </AppContext.Provider>
+                )
+           }
         </>
     );
 }

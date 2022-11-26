@@ -6,7 +6,7 @@ const ArticleBox = ({article}) => {
         <div className="articlebox">
             <a href={"/article/" + article.id}>
             <div className="articlebox__img">
-                {article.img ? <img src={article.img} alt="Article image"></img> : <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="dummies"></img> }
+                {article.url ? <img src={article.url} alt="Article image"></img> : <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="dummies"></img> }
             </div>
             <div className="articlebox__text">
                 <h1>{article.title}</h1>

@@ -93,10 +93,10 @@ const ShowArticle = () => {
                         <Button className="btn--light btn--small">Kategoria</Button>
                     </div>
                     <div className="article__box">
-                        <p><a href="">{user.username}</a> | {article.createDate}</p>
+                        <p><a href="/">{user.username}</a> | {article.createDate}</p>
                         <h1 className="article__title">{article.title}</h1>
                     </div>
-                    <img src={article.img}></img>
+                    <img src={article.url}></img>
                     <div className="article__box">
                         <p className="article__content">{article.content}</p>
                     </div>
