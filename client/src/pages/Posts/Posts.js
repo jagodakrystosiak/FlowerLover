@@ -6,8 +6,10 @@ import './Posts.scss';
 import Searchbar from "../../components/Searchbar/Searchbar";
 import PostBox from "../../components/PostBox/PostBox";
 import HttpClient from "../../services/HttpClient";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Posts = () => {
+    const axiosPrivate = useAxiosPrivate();
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const Posts = () => {
     }, [sortType, wordToFind, filtrByCategory]);
 
     const getPosts = async () => {
-        const { data } = await HttpClient().get('/posts/all');
+        const { data } = await axiosPrivate.get('/posts/all');
         let posts = data;
         if (wordToFind !== "") {
             let filteredPosts = [];
@@ -51,7 +53,7 @@ const Posts = () => {
     }
 
     const getCategories = async () => {
-        const { data } = await HttpClient().get('/categories/all');
+        const { data } = await axiosPrivate.get('/categories/all');
         let categories = data;
         setCategories(categories);
     }

@@ -1,19 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import AppContext from "../../../contexts/AppContext";
 import FormErrors from "../../../components/FormErrors.js/FormErrors";
 import "./../Authorization.scss";
 import HttpClient from "../../../services/HttpClient";
 import { useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
+import jwtDecode from "jwt-decode";
 
 const Login = () => {
+    const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
-    const { setUser, setToken } = useContext(AppContext);
+    const { setAuth } = useContext(AppContext);
     const [userData, setUserData] = useState({
         username: "",
         password: ""
     });
     const [errors, setErrors] = useState([]);
+
+    useEffect(()=> {
+        setErrors([]);
+    }, [userData])
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -30,14 +37,30 @@ const Login = () => {
                 password: userData.password
             };
 
-            const response = await HttpClient().post('/api/login', new URLSearchParams(data));
-            console.log(response.data.access_token);
-            //setUser(response.data.user);
-            localStorage.setItem("token", response.data.token);
-            //setToken(response.data.token);
-            //navigate('/');
+            const response = await axiosPrivate.post('/api/login', new URLSearchParams(data));
+            console.log(response.data);
+            const accessToken = response?.data?.access_token;
+            const refreshToken = response?.data?.refresh_token;
+            const decoded = jwtDecode(accessToken);
+            console.log(decoded);
+            setAuth({ 
+                username: userData.username, 
+                roles: decoded?.roles, 
+                access_token: accessToken,
+                refresh_token: refreshToken
+            });
+            localStorage.setItem("auth", JSON.stringify({ 
+                username: userData.username, 
+                roles: decoded?.roles, 
+                access_token: accessToken,
+                refresh_token: refreshToken
+            }));
+            navigate('/');
         } catch (error) {
-            setErrors(["Nieprawidłowy email lub hasło"]);
+            if(!error?.response) setErrors(["Brak odpowiedzi serwera"])
+            else if(error.response?.status === 400) setErrors(["Nie podano emaila lub hasła"])
+            else if(error.response?.status === 401) setErrors(["Nieprawidłowy email lub hasło"])
+            else setErrors(["Nie udało się zalogować, spróbuj ponownie później"]);
         }
     }
 
