@@ -1,0 +1,92 @@
+@import "./../../sass/variables";
+@import "./../../sass/mixins";
+
+.authorization {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: $grid-base*5 $grid-base*10;
+    margin-bottom: $grid-base*2.8;
+
+    &--login {
+        margin-bottom: $grid-base*14.4;
+    }
+
+    &-form {
+        background-color: $white-color;
+        padding: $grid-base*2;
+        border-radius: $border-radius;
+
+        &__heading {
+            color: $base-light-color;
+            font-size: $font-size-2;
+            border-bottom: 1px solid $gray-light-color;
+        }
+
+        &__form {
+            margin: $grid-base*3 0;
+
+            & div {
+                display: flex;
+                justify-content: center;
+                margin-bottom: $grid-base;
+            }
+
+            & label {
+                width: 30%;
+                padding: $grid-base 0;
+                display: flex;
+                justify-content: end;
+                margin-right: $grid-base;
+            }
+
+            & input {
+                width: 60%;
+                padding: $grid-base;
+                border: 1px solid $gray-light-color;
+            }
+
+            & button {
+                margin-top: $grid-base*2;
+            }
+        }
+
+        &__rules {
+            text-align: center;
+
+            & a {
+                color: $base-dark-color;
+                font-weight: bold;
+            }
+        }
+    }
+
+    &-info {
+        padding: $grid-base*3;
+
+        &__heading {
+            font-size: $font-size-2;
+            text-align: center;
+            margin-bottom: $grid-base*3;
+        }
+
+        &__list {
+            & li {
+                display: flex;
+                align-items: baseline;
+                margin-bottom: $grid-base;
+
+                & p {
+                    width: 90%;
+                }
+            }
+        }
+
+        &__dot {
+            margin: 0 $grid-base*2;
+            background-color: $base-dark-color;
+            border-radius: 50%;
+            width: $grid-base;
+            height: $grid-base;
+        }
+    }
+}

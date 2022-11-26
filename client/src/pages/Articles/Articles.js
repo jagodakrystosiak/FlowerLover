@@ -29,7 +29,7 @@ const Articles = () => {
         const { data } = auth ? await axiosPrivate.get('/articles/all') : await HttpClient().get('/articles/all');
         console.log({ data });
         let articles = data;
-        if (wordToFind != "") {
+        if (wordToFind !== "") {
             let filteredArticles = [];
             let i = 0;
             articles.forEach((article) => {
@@ -86,9 +86,7 @@ const Articles = () => {
             var newCategories = [];
             if(articles[i].hasOwnProperty("categories")) newCategories = articles[i].categories;
             if(!newCategories.includes(categories[j]) && articles[i].hasOwnProperty("categoriesIds") && articles[i].categoriesIds !== null && articles[i].categoriesIds.includes(categories[j].id)){
-                
                 newCategories[newCategories.length] = categories[j];
-                console.log("xd");
             }
             articles[i] = {...articles[i], categories: newCategories};
         }

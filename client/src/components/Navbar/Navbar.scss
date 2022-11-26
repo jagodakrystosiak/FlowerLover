@@ -89,6 +89,25 @@
             justify-self: center;
             margin-left: $grid-base;
         }
+
+        &-dropdown {
+            position: relative;
+
+            & > button {
+                padding: $grid-base $grid-base*3;
+                border-radius: $border-radius;
+                border: 1px solid $base-dark-color;
+            }
+
+            & #dropdownMenu {
+                background-color: $white-color;
+                padding: $grid-base*2;
+                font-size: $font-size-6;
+                border-radius: $border-radius;
+                border: 1px solid $base-dark-color;
+                position: fixed;
+            }
+        }
     }
 
     &--tablet {
@@ -122,12 +141,13 @@
             margin-top: 67px;
             padding: $grid-base*3;
             text-align: center;
-        
+
             transition: all .5s ease-in-out;
-        
+
             & li {
                 margin-top: $grid-base*3;
             }
+
             & a {
                 color: $white-color;
             }
@@ -142,7 +162,7 @@
             display: none;
         }
 
-        & > button {
+        &>button {
             background-color: transparent;
             display: flex;
             font-size: $font-size-2;
@@ -160,22 +180,20 @@
             margin-top: 57px;
             padding: $grid-base*3;
             text-align: center;
-        
+
             & form {
                 display: flex;
                 justify-content: center;
             }
-        
+
             & li {
                 margin-top: $grid-base*3;
             }
-        
+
             & a {
                 color: $white-color;
             }
         }
+
     }
 }
-
-
-
