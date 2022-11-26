@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ArticleBox from "../../components/ArticleBox/ArticleBox";
 import Pagination from '../../components/Pagination/Pagination';
 import Searchbar from "../../components/Searchbar/Searchbar";
@@ -7,8 +7,10 @@ import './../Posts/Posts.scss';
 import ArticleList from "../../components/ArticleList/ArticleList";
 import HttpClient from "../../services/HttpClient";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import AppContext from "../../contexts/AppContext";
 
 const Articles = () => {
+    const { auth } = useContext(AppContext);
     const axiosPrivate = useAxiosPrivate();
     const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -24,7 +26,7 @@ const Articles = () => {
     }, [sortType, wordToFind]);
 
     const getArticles = async () => {
-        const { data } = await axiosPrivate.get('/articles/all');
+        const { data } = auth ? await axiosPrivate.get('/articles/all') : await HttpClient().get('/articles/all');
         console.log({ data });
         let articles = data;
         if (wordToFind !== "") {
@@ -42,7 +44,7 @@ const Articles = () => {
     }
 
     const getCategories = async () => {
-        const { data } = await axiosPrivate.get('/categories/all');
+        const { data } = auth ? await axiosPrivate.get('/categories/all') : await HttpClient().get('/categories/all');
         let categories = data;
         setCategories(categories);
     }

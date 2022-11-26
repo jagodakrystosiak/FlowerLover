@@ -9,6 +9,8 @@ import Footer from "./components/Footer/Footer";
 import AppContext from "./contexts/AppContext";
 import HttpClient from "./services/HttpClient";
 import RequireAuth from "./components/RequireAuth.js/RequireAuth";
+import CreatePost from "./pages/Post/Create/CreatePost";
+
 
 //Funkcja lazy importuje komponenty dopiero kiedy wybierzemy odpowiedni routing
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -61,8 +63,13 @@ const App = () => {
                             <Route exact path="/register" element={<Register />} />
                             <Route exact path="/login" element={<Login />} />
 
-                            {/* Scieżki tylko dla zalogowanych */}
-                            <Route element={<RequireAuth />}>
+
+                            {/* Scieżki tylko dla zalogowanych użytkowników*/}
+                            <Route element={<RequireAuth allowedRoles={"ROLE_USER"}/>}>
+                                <Route exact path="/post/create" element={<CreatePost/>}/>
+                            </Route>
+                            {/* Scieżki tylko dla adminów */}
+                            <Route element={<RequireAuth allowedRoles={"ROLE_ADMIN"}/>}>
 
                             </Route>
                         </Routes>

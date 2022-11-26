@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import AppContext from '../contexts/AppContext';
 
 const useRefreshToken = () => {
-    const { auth, setAuth } = useContext(AppContext);
+    const { auth, setAuth, logout } = useContext(AppContext);
 
     const refresh = async () => {
-        if (auth.refresh_token) {
+        if (auth?.refresh_token) {
             axios.get('http://localhost:8080/api/token/refresh', {
                 withCredentials: true,
                 headers: {
@@ -15,7 +15,8 @@ const useRefreshToken = () => {
                 mode: 'cors'
             }).catch((err) => {
                 console.log(err);
-                localStorage.removeItem("auth");
+                logout();
+                window.refresh();
                 return null;
             }).then((res) => {
                 const response = res;
@@ -25,6 +26,7 @@ const useRefreshToken = () => {
                     console.log(response.data.refresh_token);
                     return { ...prev, access_token: response.data.access_token, refresh_token: response.data.refresh_token }
                 }) : localStorage.removeItem("auth");
+                window.refresh();
                 return response?.data?.access_token;
             });
         } else {

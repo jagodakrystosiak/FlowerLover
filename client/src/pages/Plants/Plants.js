@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PlantBox from "../../components/PlantBox/PlantBox";
 import PlantList from "../../components/PlantList/PlantList";
 import Searchbar from "../../components/Searchbar/Searchbar";
+import AppContext from "../../contexts/AppContext";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import HttpClient from "../../services/HttpClient";
 import './../Posts/Posts.scss';
 
 const Plants = () => {
+    const { auth } = useContext(AppContext);
     const axiosPrivate = useAxiosPrivate();
     const [plants, setPlants] = useState([]);
     const [species, setSpecies] = useState([]);
@@ -24,20 +26,20 @@ const Plants = () => {
     },[])
 
     const getPlants = async () => {
-        const { data } = await axiosPrivate.get("/plants/all");
+        const { data } = auth ? await axiosPrivate.get("/plants/all") : await HttpClient().get("/plants/all");
         console.log(data);
         let plants = data;
         setPlants(plants);
     }
 
     const getSpecies = async () => {
-        const { data } = await axiosPrivate.get("/species/all");
+        const { data } = auth ? await axiosPrivate.get("/species/all") : await HttpClient().get("/species/all");
         console.log(data);
         setSpecies(data);
     }
 
     const getGroupOfPlants = async () => {
-        const { data } = await axiosPrivate.get("/groups-of-plants/all");
+        const { data } = auth ? await axiosPrivate.get("/groups-of-plants/all") : await HttpClient().get("/groups-of-plants/all");
         setGroupOfPlants(data);
     }
 
