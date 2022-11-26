@@ -1,0 +1,8 @@
+@import "./../../sass/variables";
+
+.form-errors {
+    & ul li {
+        text-align: center;
+        color: $warning-color;
+    }
+}

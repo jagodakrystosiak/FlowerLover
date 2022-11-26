@@ -6,6 +6,7 @@ import PostBox from "../../components/PostBox/PostBox";
 import PostsList from "../../components/PostsList/PostsList";
 import Pagination from '../../components/Pagination/Pagination';
 import Carousel from "../../components/Carousel/Carousel";
+import HttpClient from "../../services/HttpClient";
 
 function Home() {
     const [articles, setArticles] = useState([]);

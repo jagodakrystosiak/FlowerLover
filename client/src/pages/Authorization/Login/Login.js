@@ -1,16 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
-import AppContext from "../../../context/AppContext";
+import AppContext from "../../../contexts/AppContext";
+import FormErrors from "../../../components/FormErrors.js/FormErrors";
 import "./../Authorization.scss";
+import HttpClient from "../../../services/HttpClient";
+import { useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
+import jwtDecode from "jwt-decode";
 
 const Login = () => {
-    const { setUser } = useContext(AppContext);
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const { setAuth } = useContext(AppContext);
     const [userData, setUserData] = useState({
         username: "",
-        email: "",
         password: ""
     });
     const [errors, setErrors] = useState([]);
+
+    useEffect(()=> {
+        setErrors([]);
+    }, [userData])
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -18,14 +28,39 @@ const Login = () => {
         let _errors = [];
 
         if (!userData.username) _errors.push('Nazwa użytkownika jest wymagana');
-        if (!userData.email) _errors.push('Adres e-mail jest wymagany');
         if (!userData.password) _errors.push('Hasło jest wymagane');
         if (_errors.length) return setErrors(_errors);
 
         try {
-            console.log("try");
+            const data = {
+                username: userData.username,
+                password: userData.password
+            };
+
+            const response = await axiosPrivate.post('/api/login', new URLSearchParams(data));
+            console.log(response.data);
+            const accessToken = response?.data?.access_token;
+            const refreshToken = response?.data?.refresh_token;
+            const decoded = jwtDecode(accessToken);
+            console.log(decoded);
+            setAuth({ 
+                username: userData.username, 
+                roles: decoded?.roles, 
+                access_token: accessToken,
+                refresh_token: refreshToken
+            });
+            localStorage.setItem("auth", JSON.stringify({ 
+                username: userData.username, 
+                roles: decoded?.roles, 
+                access_token: accessToken,
+                refresh_token: refreshToken
+            }));
+            navigate('/');
         } catch (error) {
-            setErrors([error.response.data.message]);
+            if(!error?.response) setErrors(["Brak odpowiedzi serwera"])
+            else if(error.response?.status === 400) setErrors(["Nie podano emaila lub hasła"])
+            else if(error.response?.status === 401) setErrors(["Nieprawidłowy email lub hasło"])
+            else setErrors(["Nie udało się zalogować, spróbuj ponownie później"]);
         }
     }
 
@@ -33,19 +68,20 @@ const Login = () => {
         <div className="container authorization authorization--login">
             <div className="authorization-form">
                 <h1 className="authorization-form__heading">Logowanie</h1>
-                <form action="" className="authorization-form__form authorization-form__form--login">
+                <form onSubmit={onSubmit} className="authorization-form__form authorization-form__form--login">
+                <FormErrors errors={errors} />
                     <div>
-                        <label htmlFor="email">E-mail:</label>
-                        <input type="email" />
+                        <label htmlFor="username">Nazwa użytkownika:</label>
+                        <input id="username" name="username" type="text" value={userData.username} onChange={(event) => setUserData({...userData, username: event.target.value})} placeholder="Wprowadź nazwę użytkownika"/>
                     </div>
                     <div>
                         <label htmlFor="password">Hasło:</label>
-                        <input id="password" name="password" type="password" />
+                        <input id="password" name="password" type="password" value={userData.password} onChange={(event) => setUserData({...userData, password: event.target.value})} placeholder="Wprowadź hasło"/>
                     </div>
                     <div><Button type="submit" className="btn--dark">Zaloguj się</Button></div>
                 </form>
                 <p className="authorization-form__rules">Nie masz konta w serwisie?
-                    <a href="/"> Zarejestruj się</a>
+                    <a href="/register"> Zarejestruj się</a>
                 </p>
             </div>
             <div className="authorization-info">

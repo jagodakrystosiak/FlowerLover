@@ -1,8 +1,8 @@
 import {createContext} from 'react';
 
 const AppContext = createContext({
-    user: null,
-    setUser: () => {},
+    auth: null,
+    setAuth: () => {},
     logout: () => {}
 });
 

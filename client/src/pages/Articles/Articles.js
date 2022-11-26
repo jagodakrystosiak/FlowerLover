@@ -6,8 +6,10 @@ import Button from "../../components/Button/Button";
 import './../Posts/Posts.scss';
 import ArticleList from "../../components/ArticleList/ArticleList";
 import HttpClient from "../../services/HttpClient";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Articles = () => {
+    const axiosPrivate = useAxiosPrivate();
     const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false); // do implementacji
@@ -22,10 +24,10 @@ const Articles = () => {
     }, [sortType, wordToFind]);
 
     const getArticles = async () => {
-        const { data } = await HttpClient().get('http://localhost:8080/articles/all');
+        const { data } = await axiosPrivate.get('/articles/all');
         console.log({ data });
         let articles = data;
-        if (wordToFind != "") {
+        if (wordToFind !== "") {
             let filteredArticles = [];
             let i = 0;
             articles.forEach((article) => {
@@ -40,7 +42,7 @@ const Articles = () => {
     }
 
     const getCategories = async () => {
-        const { data } = await HttpClient().get('/categories/all');
+        const { data } = await axiosPrivate.get('/categories/all');
         let categories = data;
         setCategories(categories);
     }
@@ -82,9 +84,7 @@ const Articles = () => {
             var newCategories = [];
             if(articles[i].hasOwnProperty("categories")) newCategories = articles[i].categories;
             if(!newCategories.includes(categories[j]) && articles[i].hasOwnProperty("categoriesIds") && articles[i].categoriesIds !== null && articles[i].categoriesIds.includes(categories[j].id)){
-                
                 newCategories[newCategories.length] = categories[j];
-                console.log("xd");
             }
             articles[i] = {...articles[i], categories: newCategories};
         }
