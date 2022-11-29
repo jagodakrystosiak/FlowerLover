@@ -1,0 +1,103 @@
+@import "./../../sass/variables";
+
+.addrecords {
+    padding: $grid-base*5;
+
+    &>h1 {
+        font-size: $font-size-2;
+        margin-bottom: $grid-base*2;
+    }
+
+    &__button {
+        border: 2px solid $base-dark-color;
+        border-bottom: none;
+        margin-right: 1px;
+        border-radius: $border-radius $border-radius 0 0;
+        font-size: $font-size-5;
+        background-color: $base-dark-color;
+        margin-bottom: -2px;
+    }
+
+    &__button-active {
+        background-color: $white-color;
+    }
+
+    &__card {
+        border: 2px solid $base-dark-color;
+        background-color: $white-color;
+        padding: $grid-base*4;
+        margin-bottom: $grid-base*11;
+
+        &>h2 {
+            font-size: $font-size-3;
+            border-bottom: 1px solid $base-dark-color;
+            margin-bottom: $grid-base*2;
+            padding: $grid-base;
+        }
+
+        &>form {
+            margin-bottom: $grid-base;
+
+            &>div {
+                display: flex;
+                align-items: baseline;
+            }
+
+            & label {
+                width: 20%;
+                text-align: end;
+                margin-right: $grid-base;
+            }
+
+            & input,
+            textarea {
+                padding: $grid-base*.5;
+                margin-right: $grid-base*2;
+                margin-bottom: $grid-base;
+                width: 70%;
+                accent-color: $base-dark-color;
+            }
+
+            & fieldset {
+                padding: $grid-base*2;
+                margin: $grid-base*3 $grid-base;
+            }
+        }
+
+        #success {
+            color: $success-color;
+            text-align: center;
+        }
+    }
+
+    &__buttons {
+        margin-top: $grid-base*2;
+        display: flex;
+        justify-content: center;
+
+        & button {
+            margin-right: $grid-base;
+        }
+    }
+
+    &__cartegories {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &>div {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: $grid-base*2;
+
+            & input {
+                width: auto;
+                margin-right: $grid-base*.5;
+            }
+            & label {
+                width: auto;
+            }
+        }
+    }
+}

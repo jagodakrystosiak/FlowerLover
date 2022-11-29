@@ -62,13 +62,17 @@
     }
 
     &__author {
-        font-weight: bold;
         margin-top: 2.5px;
+        color: $gray-color;
 
         & span {
-            margin-left: $grid-base*.5;
-            color: $gray-color;
-            font-weight: normal;
+            font-weight: bold;
+            color: $gray-dark-color;
+
+            & span { 
+                color: $base-light-color;
+                margin-right: $grid-base*.5;
+            }
         }
     }
 

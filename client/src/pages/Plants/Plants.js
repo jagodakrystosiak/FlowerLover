@@ -4,47 +4,48 @@ import PlantList from "../../components/PlantList/PlantList";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import AppContext from "../../contexts/AppContext";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import HttpClient from "../../services/HttpClient";
+import useFetchers from "../../hooks/useFetchers";
 import './../Posts/Posts.scss';
+import plantsFilter from "../../helpers/plantsFilter";
+import Button from "../../components/Button/Button";
 
 const Plants = () => {
-    const { auth } = useContext(AppContext);
-    const axiosPrivate = useAxiosPrivate();
+    const { fetchGroupsOfPlants, fetchSpecies, fetchPlants } = useFetchers();
     const [plants, setPlants] = useState([]);
     const [species, setSpecies] = useState([]);
     const [groupOfPlants, setGroupOfPlants] = useState([]);
     const [filterOptions, setFilterOptions] = useState({
-        plantsPerPage: 10,
-        sortType: "",
-        wordToFind: ""
+        wordToFind: "",
+        filterBySpecie: null,
+        filterByGroupOfPlants: null
     })
-
+ 
     useEffect(() => {
-        getPlants();
         getSpecies();
         getGroupOfPlants();
     },[])
 
+    useEffect(()=>{
+        getPlants();
+    },[filterOptions])
+
     const getPlants = async () => {
-        const { data } = auth ? await axiosPrivate.get("/plants/all") : await HttpClient().get("/plants/all");
-        console.log(data);
+        const data = await fetchPlants();
         let plants = data;
-        setPlants(plants);
+        setPlants(plantsFilter(plants, filterOptions));
     }
 
     const getSpecies = async () => {
-        const { data } = auth ? await axiosPrivate.get("/species/all") : await HttpClient().get("/species/all");
+        const data = await fetchSpecies();
         console.log(data);
         setSpecies(data);
     }
 
     const getGroupOfPlants = async () => {
-        const { data } = auth ? await axiosPrivate.get("/groups-of-plants/all") : await HttpClient().get("/groups-of-plants/all");
+        const data = await fetchGroupsOfPlants();
         setGroupOfPlants(data);
     }
 
-    const handlePlantsPerPageChange = (event) => setFilterOptions(prev=>({...prev, plantsPerPage: event.target.value}));
-    const handleSortPlants = (event) => setFilterOptions(prev=>({...prev, sortType: event.target.value}));
     const handleSearchPlants = (event) => setFilterOptions(prev=>({...prev, wordToFind: event.target.value}));
 
     return (
@@ -53,24 +54,19 @@ const Plants = () => {
                 <h1>Wyszukaj według</h1>
                 <h2>Gatunki</h2>
                 <ul>
-                    {species.map((spec) => <li>{spec.name}</li>)}
+                    {species.length ? species.map((spec, index) => <li key={index}>
+                        <a onClick={(spec) => setFilterOptions({...filterOptions, filterBySpecie: species.find((element) => element === spec)})}>{spec.name}</a>
+                    </li>) : <h2>Brak gatunków do wyświetlenia</h2>}
                 </ul>
                 <h2>Grupy</h2>
                 <ul>
-                    {groupOfPlants.map((group) => <li>{group.name}</li>)}
+                    {groupOfPlants.length ? groupOfPlants.map((group, index) => <li key={index}>{group.name}</li>) : <h2>Brak grup do wyświetlenia</h2>}
                 </ul>
             </div>
             <div className="content__list">
                 <h1>Rośliny</h1>
                 <div className="content__filter">
-                    <Searchbar />
-                    <p>Sortuj
-                        <select className="content__select" >
-                            <option value="newest">Najnowsze</option>
-                            <option value="oldest">Najstarsze</option>
-                            <option value="title">Tytuły</option>
-                        </select>
-                    </p>
+                    <Searchbar onChange={(event) => setFilterOptions({...filterOptions, wordToFind: event.target.value})}/>
                     <p>Pokaż
                         <select className="content__select" >
                             <option value="12">12</option>
@@ -79,7 +75,7 @@ const Plants = () => {
                         </select>
                     </p>
                 </div>
-                <PlantList plants={plants} />
+                {plants.length ? <PlantList plants={plants} /> : <h2 className="content__none">Brak roślin do wyświetlenia</h2>}
             </div>
         </div>
     )

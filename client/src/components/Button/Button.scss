@@ -11,6 +11,10 @@
     font-size: $font-size-7;
     cursor: pointer;
 
+    &:hover {
+        background-color: darken($white-color, 10);
+    }
+
     @include large-up {
         padding: $grid-base $grid-base;
         font-size: $font-size-8;
@@ -66,5 +70,9 @@
     &--small {
         padding: $grid-base*0.5 $grid-base*1;
         font-size: $font-size-8;
+    }
+
+    &--record {
+        
     }
 }

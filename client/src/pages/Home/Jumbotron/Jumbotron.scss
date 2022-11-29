@@ -1,4 +1,4 @@
-@import './../../sass/mixins';
+@import './../../../sass/mixins';
 
 .jumbotron {
     display: block;
@@ -26,6 +26,10 @@
 
     &__articles {
         display: grid;
+
+        & a {
+            text-decoration: none;
+        }
         
         @include small-up {
             grid-template-columns: repeat(3, 1fr);

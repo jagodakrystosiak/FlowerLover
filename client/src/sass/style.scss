@@ -65,8 +65,16 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: $gray-dark-color;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
         color: $gray-dark-color;
         text-decoration: underline;
     }
+}
+
+.display-block {
+    display: block;
+}
+.display-none {
+    display: none;
 }

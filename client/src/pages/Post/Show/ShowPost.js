@@ -1,122 +1,112 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import './ShowPost.scss';
-import useAxiosPrivate from "./../../../hooks/useAxiosPrivate";
+import FormErrors from "../../../components/FormErrors/FormErrors";
 import AppContext from "../../../contexts/AppContext";
-import HttpClient from "../../../services/HttpClient";
+import useFetchers from "../../../hooks/useFetchers";
+import useSenders from "../../../hooks/useSenders";
+import dateConverter from "../../../helpers/dateConverter";
 
 const ShowPost = () => {
+    const { fetchPostById, fetchCommentById, fetchCategoryById } = useFetchers();
+    const { sendComment } = useSenders();
     const { auth } = useContext(AppContext);
     const { id } = useParams();
-    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
     const [post, setPost] = useState(null);
-    const [user, setUser] = useState(null);
     const [comments, setComments] = useState([]);
-    const [comment, setComment] = useState("");
-    const [commentsAuthor, setCommentsAuthors] = useState([]);
+    const [comment, setComment] = useState({
+        content: "",
+        postId: id,
+        username: auth?.username
+    });
+    const [errors, setErrors] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         getPost();
     }, [id]);
 
+    useEffect(() => {
+        getComments();
+        getCategories();
+    }, [post]);
+
 
     const getPost = async () => {
-        const { data } = auth ? await axiosPrivate.get("/posts/?postId=" + id) : await HttpClient().get("/posts/?postId=" + id);
-        console.log(data);
+        const data = await fetchPostById(id);
         setPost(data);
-        getComments();
     };
 
-    const getComments = () => {
-        setComments([
-            {
-                content: "Cursus risus at ultrices mi. Leo in vitae turpis massa. Faucibus turpis in eu mi bibendum neque. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien. In hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit. ",
-                create_date: new Date(2000, 9, 22, 18, 10, 13)
-            },
-            {
-                content: "Aenean et tortor at risus viverra adipiscing. Mattis rhoncus urna neque viverra justo nec ultrices dui sapien. Dolor magna eget est lorem ipsum dolor sit amet consectetur. Faucibus a pellentesque sit amet porttitor eget dolor morbi non.",
-                create_date: new Date(2000, 9, 22, 18, 10, 13)
-            },
-            {
-                content: "xd",
-                create_date: new Date(2000, 9, 22, 18, 10, 13)
-            }
-        ]);
-        getCommentsAuthors();
-    }
-
-    const getCommentsAuthors = () => {
-        setCommentsAuthors([
-            {
-                id: 2,
-                username: "ania_kwas"
-            },
-            {
-                id: 3,
-                username: "kochamkwiaty"
-            },
-            {
-                id: 4,
-                username: "BeAtkA"
-            }
-        ])
-    }
-
-    const createDate = (object) => {
-        let date = "";
-        if (object != null && object.create_date != null) {
-            date = object.create_date.getDate() + "."
-                + object.create_date.getMonth() + "."
-                + object.create_date.getFullYear() + "\t"
-                + object.create_date.getHours() + ":"
-                + object.create_date.getMinutes();
+    const getComments = async () => {
+        let comments = [];
+        for(let commentId of post.commentsIds){
+            const data = await fetchCommentById(commentId);
+            comments.push(data);
         }
-        return date;
+        setComments(comments);
     }
 
-    const onSubmit = async () => {
-        const data = {
-            content: comment,
-            postId: id,
-            username: auth.username
+    const getCategories = async () => {
+        let categories = [];
+        for(let categoryId of post.categoriesIds){
+            const data = await fetchCategoryById(categoryId);
+            categories.push(data);
         }
-        await axiosPrivate.post("/comment/new-comment", data);
+        setCategories(categories);
+    }
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        setErrors([]);
+
+        if(comment.content === "") setErrors(["Komentarz nie może być pusty"])
+        else {
+            try {
+                console.log(comment);
+                await sendComment(comment);
+                navigate("/post/" + id);
+            } catch (error) {
+                setErrors(["Nie udało się dodać komentarz, spróbuj ponownie później"])
+            }
+        }
     }
 
     return (
         <div className="container">
-            {post !== null ?
+            {post ?
                 <div className="post">
                     <div className="post__categories">
-                        <Button className="btn--light btn--small">Kategoria</Button>
-                        <Button className="btn--light btn--small">Kategoria</Button>
-                        <Button className="btn--light btn--small">Kategoria</Button>
+                        {categories.map((category) => <Button className="btn--light btn--small">{category.name}</Button>)}
                     </div>
                     <div className="post__box">
-                    <p className="post__date">{createDate(post)}</p>
-                    <p className="post__author">{post.username} pisze:</p>
-                    <h2 className="post__title">{post.title}</h2>
-                    <p className="post__content">{post.content}</p>
-                    <h1>Komentarze</h1>
-                    <div className="post-divide"></div>
-                    {auth ? <form className="post__add-comment" onSubmit={onSubmit}>
-                        <textarea onChange={(event) => setComment(event.target.value)} placeholder="Wprowadź komentarz ..."></textarea>
-                        <Button type="submit" className="btn--light btn--small">Dodaj</Button>
-                        <Button type="reset" className="btn--lighter btn--small">Anuluj</Button>
-                    </form>: <p>Zaloguj się, aby dodawać komentarze</p>}
-                    {comments !== null && commentsAuthor !== null ?
-                        <ul className="post__comments">
-                            {comments.map((comment, index) =>
-                                <><li>
-                                    <div className="post__comment-author"><a href={"/user/" + commentsAuthor[index].id}>{commentsAuthor[index].username}</a> pisze:</div>
-                                    <div className="post__comment-content">{comment.content}</div>
-                                    <div className="post__comment-date">{createDate(comment)}</div>
-                                </li>
-                                    <div className="comment-divide"></div></>
-                            )}
-                        </ul>
-                        : <h1>Brak komentarzy</h1>}
+                        <p className="post__date">{dateConverter(post.createDate)}</p>
+                        <p className="post__author"><span>{post.username}</span> pisze:</p>
+                        {post?.username === auth?.username ? <Button className="btn--lighter" onClick={() => navigate("/post/edit/" + post?.id)}>Edytuj</Button> : ""}
+                        <h2 className="post__title">{post.title}</h2>
+                        <p className="post__content">{post.content}</p>
+                        <h1>Komentarze</h1>
+                        <div className="post-divide"></div>
+                        {auth ? 
+                        <form className="post__add-comment" onSubmit={onSubmit}>
+                            <FormErrors errors={errors} />
+                            <textarea onChange={(event) => setComment({...comment, content: event.target.value})} placeholder="Wprowadź komentarz ..."></textarea>
+                            <Button type="submit" className="btn--light btn--small">Dodaj</Button>
+                            <Button type="reset" className="btn--lighter btn--small">Anuluj</Button>
+                        </form> : <p><a href="/login">Zaloguj się</a>, aby dodawać komentarze</p>}
+                        {comments.length ?
+                            <ul className="post__comments">
+                                {comments.map((comment, index) =>
+                                    <><li>
+                                        <div className="post__comment-author"><span>{comment.username}</span> pisze:</div>
+                                        <div className="post__comment-content">{comment.content}</div>
+                                        <div className="post__comment-date">{dateConverter(comment.createDate)}</div>
+                                    </li>
+                                        <div className="comment-divide"></div></>
+                                )}
+                            </ul>
+                            : <h2>Brak komentarzy</h2>}
                     </div>
                 </div>
                 : <h1>Loading ...</h1>}

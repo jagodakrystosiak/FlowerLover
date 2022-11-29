@@ -1,0 +1,52 @@
+@import "./../../sass/variables";
+
+.plant {
+    margin: $grid-base*10;
+    border-radius: $border-radius;
+    background-color: $white-color;
+    display: flex;
+
+    &__img {
+        margin-bottom: -5px;
+
+        & > img {
+            border-radius: $border-radius 0 0 $border-radius;
+        }
+    }
+
+    &__content {
+        width: 60%;
+        padding: $grid-base*3;
+    }
+
+    &__name {
+        font-size: $font-size-2;
+        text-align: center;
+    }
+
+    &__cname {
+        font-size: $font-size-4;
+        text-align: center;
+        margin-bottom: $grid-base*3;
+    }
+
+    &__desc {
+        text-align: center;
+        margin-bottom: $grid-base*2;
+    }
+
+    &__group {
+        font-size: $font-size-6;
+    }
+
+    &__row {
+        & > h2 {
+            padding: $grid-base*.5 0;
+            border-bottom: 2px dotted $base-dark-color;
+        }
+
+        & > p {
+            padding: $grid-base*.5 0;
+        }
+    }
+}

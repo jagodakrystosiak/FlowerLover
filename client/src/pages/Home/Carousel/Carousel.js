@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../Button/Button';
+import Button from './../../../components/Button/Button';
 import './Carousel.scss';
 
 function Carousel({ articles }) {
@@ -40,7 +40,9 @@ function Carousel({ articles }) {
                     return (
                         <div className={"mySlides fade " + (index==slideIndex ? "display-block" : "display-none")}>
                             <div className="carousel__numbertext">{index+1} / {articles.length}</div>
-                            <div className='carousel__img'><img src={article.img} alt="Image for the article" /></div>
+                            <div className='carousel__img'>
+                                {article.url ? <img src={article.url} alt="Image for the article" /> : <img src="https://dummyimage.com/1000x500/ffffff/e3e3e3&text=Nie+uda%C5%82o+si%C4%99+za%C5%82adowa%C4%87+obrazka" alt='Nie udało się załadować obrazka'></img>}
+                            </div>
                             <div className="carousel__text">
                                 <h2>{article.title}</h2>
                                 <p>{article.content.substring(0,150)} ... </p>

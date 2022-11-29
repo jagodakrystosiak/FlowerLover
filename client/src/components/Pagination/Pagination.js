@@ -11,7 +11,7 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
     return (
         <div className="pagination">
             <ul className="pagination__list">
-                {currentPage - 1 >= 1 ? <li><button onClick={() => paginate(currentPage - 1)} href=""><i class="fa-solid fa-arrow-left"></i></button></li> : <></>}
+                {currentPage - 1 >= 1 ? <li><button onClick={() => paginate(currentPage - 1)} href=""><i className="fa-solid fa-arrow-left"></i></button></li> : <></>}
 
                 {pageNumber.map((number) => {
                     if (number <= 5 && currentPage < 5) {
@@ -57,7 +57,7 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
 
                 })}
 
-                {currentPage + 1 <= Math.ceil(totalPosts / postsPerPage) ? <li><button onClick={() => paginate(currentPage + 1)} href=""><i class="fa-solid fa-arrow-right"></i></button></li> : <></>}
+                {currentPage + 1 <= Math.ceil(totalPosts / postsPerPage) ? <li><button onClick={() => paginate(currentPage + 1)} href=""><i className="fa-solid fa-arrow-right"></i></button></li> : <></>}
             </ul>
         </div>
     )

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./../Authorization.scss";
 import Button from "../../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
-import HttpClient from "../../../services/HttpClient";
-import FormErrors from "../../../components/FormErrors.js/FormErrors";
+import FormErrors from "../../../components/FormErrors/FormErrors";
+import axios from "../../../api/axios";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Register = () => {
         };
 
         try {
-            await HttpClient().post('/api/user/save', data);
+            await axios.post('/api/user/save', data);
             navigate('/login');
         } catch (error) {
             setErrors("Nie udało się utworzyć konta, spróbuj ponownie później");
