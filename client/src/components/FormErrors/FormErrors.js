@@ -11,7 +11,7 @@ const FormErrors = ({errors}) => {
                     ))}
                 </ul>
             ): (
-                <span>{errors[0]}</span>
+                <ul><li>{errors[0]}</li></ul>
             )}
         </div>
     )

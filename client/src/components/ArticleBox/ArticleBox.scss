@@ -5,24 +5,25 @@
 
     & a {
         cursor: pointer;
+        text-decoration: none;
     }
 
     &__text {
         background-color: white;
         padding: $grid-base;
-        padding-bottom: $grid-base*4;
+        padding-bottom: $grid-base*2;
         text-align: center;
+
+        & button {
+            margin-right: $grid-base*.5;
+        }
     }
 
     &__img {
         width: 100%;
-        height: auto;
+        height: 200px;
+        background-color: $base-dark-color;
+        background-position: center;
         box-shadow: $box-shadow-inset-white;
-
-        & img {
-            height: auto;
-            position: relative;
-            z-index: -2;
-        }
     }
 }

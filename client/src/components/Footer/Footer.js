@@ -10,7 +10,7 @@ function Footer () {
                         <h3>Porady</h3>
                         <ul>
                             <li><a href="/">Strona główna</a></li>
-                            <li><a href="/">Najpopularniejsze kategorie</a></li>
+                            <li><a href="/articles">Artykuły</a></li>
                             <li><a href="/">Pielęgnacja</a></li>
                             <li><a href="/">Architektura</a></li>
                             <li><a href="/">Aranżacja</a></li>
@@ -22,7 +22,7 @@ function Footer () {
                     <div className="footer__section">
                         <h3>Forum</h3>
                         <ul>
-                            <li><a href="/">Posty</a></li>
+                            <li><a href="/posts">Posty</a></li>
                             <li><a href="/">Tematy na czasie</a></li>
                             <li><a href="/">Pielęgnacja</a></li>
                             <li><a href="/">Architektura</a></li>
@@ -36,7 +36,7 @@ function Footer () {
                     <div className="footer__section">
                         <h3>Rośliny</h3>
                         <ul>
-                            <li><a href="/">Katalog roślin</a></li>
+                            <li><a href="/plants">Katalog roślin</a></li>
                             <li><a href="/">Wyszukiwanie roślin</a></li>
                             <li><a href="/">Rośliny zielone</a></li>
                             <li><a href="/">Rośliny z kwiatostanem</a></li>
@@ -47,7 +47,7 @@ function Footer () {
                     <div className="footer__section">
                         <h3>Profil</h3>
                         <ul>
-                            <li><a href="/">Profil użytkownika</a></li>
+                            <li><a href="/profile">Profil użytkownika</a></li>
                             <li><a href="/">Moje rośliny</a></li>
                             <li><a href="/">Kalendarz podlewania</a></li>
                             <li><a href="/">Ustawienia konta</a></li>

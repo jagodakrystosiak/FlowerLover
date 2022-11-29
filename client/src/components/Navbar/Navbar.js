@@ -25,16 +25,22 @@ const Navbar = () => {
                             <li><Link to="/posts">Forum</Link></li>
                             <li><Link to='/plants'>Rośliny</Link></li>
                         </ul>
-                        <p className="navbar__search"><Searchbar></Searchbar></p>
+                        <div className="navbar__search"><Searchbar></Searchbar></div>
                         <ul className="navbar__user">
                             {auth ?
                                 <>
-                                    <li><Link to='/articles'>Moje rośliny</Link></li>
+                                    <ul className="navbar__nav">
+                                        <li><Link to='/articles'>Moje rośliny</Link></li></ul>
                                     <li><div className="navbar__user-dropdown">
-                                        <Button className="btn--lighter" onClick={() => setShowDropDownMenu(!showDropDownMenu)}>{auth?.username} <i class="fa-solid fa-caret-down"></i></Button>
+                                        <Button onClick={() => setShowDropDownMenu(!showDropDownMenu)}>{auth?.username} <i className="fa-solid fa-caret-down"></i></Button>
                                         <ul id="dropdownMenu" className={showDropDownMenu ? "display-block" : "display-none"}>
                                             <li>Profil</li>
-                                            <li><Button className="btn--dark" onClick={()=>logout()}>Wyloguj się</Button></li>
+                                            {auth?.roles.includes("ROLE_ADMIN") ? <>
+                                                <li><a href="/records">Rekordy</a></li>
+                                                <li><a href="/records/add">Dodaj rekordy</a></li>
+                                                <li><a href="/users">Użytkownicy</a></li>
+                                            </> : ""}
+                                            <li><Button className="btn--dark" onClick={() => logout()}>Wyloguj się</Button></li>
                                         </ul>
                                     </div></li>
                                 </>
@@ -44,7 +50,7 @@ const Navbar = () => {
                             }
                         </ul>
                         <div className="navbar--tablet">
-                            <button onClick={() => setShowMenuTablet(!showMenuTablet)}><i class="fa-solid fa-bars"></i></button>
+                            <button onClick={() => setShowMenuTablet(!showMenuTablet)}><i className="fa-solid fa-bars"></i></button>
                             <ul id="navTablet" className={showMenuTablet ? "display-block" : "display-none"}>
                                 <li><Link to='/articles'>Porady</Link></li>
                                 <li><Link to="/posts">Forum</Link></li>
@@ -54,7 +60,7 @@ const Navbar = () => {
                             </ul>
                         </div>
                         <div className="navbar--mobile">
-                            <button onClick={() => setShowMenuMobile(!showMenuMobile)}><i class="fa-solid fa-bars"></i></button>
+                            <button onClick={() => setShowMenuMobile(!showMenuMobile)}><i className="fa-solid fa-bars"></i></button>
                             <ul id="navMoblie" className={showMenuMobile ? "display-block" : "display-none"}>
                                 <Searchbar></Searchbar>
                                 <li><Link to='/articles'>Porady</Link></li>

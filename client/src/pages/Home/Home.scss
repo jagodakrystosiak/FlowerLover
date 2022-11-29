@@ -13,6 +13,7 @@
         &__posts {
             grid-area: 1 / 1 / 1 / span 2;
         }
+        
     }
 
     & h1 {
@@ -22,11 +23,13 @@
     }
 
     &__posts {
+        display: flex;
+        flex-direction: column;
+
         & > ul {
             background-color: white;
             padding: $grid-base;
         }
-
     }
 
     &__sidebar {
@@ -74,20 +77,11 @@
         }
     }
 
-    &__tags {
-
-        & > ul {
-            display: flex;
-            flex-wrap: wrap;
-
-            & > li {
-                margin-left: $grid-base*0.5;
-                
-                & button {
-                    cursor: pointer;
-                }
-            }
-        }
+    &__more {
+        background-color: $white-color;
+        width: 100%;
+        text-align: center;
+        padding-bottom: $grid-base*3;
     }
 
 }

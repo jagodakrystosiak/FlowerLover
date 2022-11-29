@@ -7,7 +7,7 @@ const PlantList = ({ plants }) => {
     return (
         <div className="plantlist">
             {plants.map((plant, index) =>  
-            <PlantBox plant={plant} />
+            <PlantBox key={index} plant={plant} />
             )}
         </div>
     )

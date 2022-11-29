@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import AppContext from "../../../contexts/AppContext";
-import FormErrors from "../../../components/FormErrors.js/FormErrors";
+import FormErrors from "../../../components/FormErrors/FormErrors";
 import "./../Authorization.scss";
-import HttpClient from "../../../services/HttpClient";
 import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
 import jwtDecode from "jwt-decode";
+import axios from "../../../api/axios";
 
 const Login = () => {
-    const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const { setAuth } = useContext(AppContext);
     const [userData, setUserData] = useState({
@@ -37,7 +36,7 @@ const Login = () => {
                 password: userData.password
             };
 
-            const response = await axiosPrivate.post('/api/login', new URLSearchParams(data));
+            const response = await axios.post('/api/login', new URLSearchParams(data));
             console.log(response.data);
             const accessToken = response?.data?.access_token;
             const refreshToken = response?.data?.refresh_token;
@@ -50,8 +49,6 @@ const Login = () => {
                 refresh_token: refreshToken
             });
             localStorage.setItem("auth", JSON.stringify({ 
-                username: userData.username, 
-                roles: decoded?.roles, 
                 access_token: accessToken,
                 refresh_token: refreshToken
             }));

@@ -1,21 +1,6 @@
 # TODOSY
 
-* usunąć HttpCliet i zastąpic zwykłym axios
 * ogarnąć refresh token bo za dużo się tak dzieje XD
-
-# Posty
-
-* helpers do filtrowania listy postów, artykułów
-* strona dodawania postow i artykulów
-* helpers do fetch
-
-# Artykuły
-
-* filtracja za pomoca kategorii
-
-# Rośliny
-
-* strona rośliny
 
 # Użytkownik
 

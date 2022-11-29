@@ -9,8 +9,8 @@ const ArticleList = ({ articles, loading }) => {
 
     return (
         <div className="articlelist">
-            {articles.map((article) => 
-            <ArticleBox article={article} />)}
+            {articles && articles.map((article, index) => 
+            <ArticleBox key={index} article={article} />)}
         </div>
     )
 }

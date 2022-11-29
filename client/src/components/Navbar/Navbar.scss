@@ -6,17 +6,9 @@
     margin-top: 67px;
 }
 
-.display_block {
-    display: block !important;
-}
-
-.display_none {
-    display: none !important;
-}
-
 .navbar {
     width: 100vw;
-    background-color: rgba($color: #FFFFFF, $alpha: 0.95);
+    background-color: rgba($white-color, $alpha: 0.95);
     color: $gray-color;
     padding: $grid-base*1.5 0;
     position: fixed;
@@ -55,17 +47,18 @@
         }
 
         & li {
-            padding: 10px 10px;
             margin-right: 10px;
-            border-radius: $border-radius;
-
-            &:hover {
-                background-color: $base-lighter-color;
-            }
 
             & a {
+                padding: 10px 10px;
+                border-radius: $border-radius;
+                width: 100%;
                 color: $gray-color;
                 text-decoration: none;
+
+                &:hover {
+                    background-color: $base-lighter-color;
+                }
             }
         }
     }
@@ -84,19 +77,26 @@
         display: none;
 
         @include large-up {
+            width: 100%;
             display: flex;
+            align-items: center;
             gap: 10px;
             justify-self: center;
+            justify-content: end;
             margin-left: $grid-base;
         }
 
         &-dropdown {
             position: relative;
 
-            & > button {
+            &>button {
                 padding: $grid-base $grid-base*3;
                 border-radius: $border-radius;
                 border: 1px solid $base-dark-color;
+
+                &:hover {
+                    background-color: $white-color;
+                }
             }
 
             & #dropdownMenu {
@@ -106,6 +106,10 @@
                 border-radius: $border-radius;
                 border: 1px solid $base-dark-color;
                 position: fixed;
+
+                &>li {
+                    margin: $grid-base 0;
+                }
             }
         }
     }
