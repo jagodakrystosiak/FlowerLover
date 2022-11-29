@@ -13,7 +13,7 @@ const dateConverter = (date) => {
 
         }
         else if (diffrence > 3600000) {
-            dateString = Math.floor(diffrence / 3600000) + " godzin temu";
+            dateString = Math.floor(diffrence / 3600000) + " godz temu";
         }
         else {
             dateString = Math.floor(diffrence / 60000) + " min temu";
