@@ -7,7 +7,9 @@ const plantsFilter = (data, {wordToFind, filterBySpecie, filterByGroupOfPlants})
         let filteredPlants = [];
         let i = 0;
         plants.forEach((plant) => {
-            if (plant?.customaryName.includes(wordToFind) || plant?.name.includes(wordToFind) || plant?.description.includes(wordToFind)) {
+            if (plant?.customaryName.toUpperCase().includes(wordToFind.toUpperCase()) || 
+            plant?.name.toUpperCase().includes(wordToFind.toUpperCase()) || 
+            plant?.description.toUpperCase().includes(wordToFind.toUpperCase())) {
                 filteredPlants[i] = plant;
                 i++;
             }

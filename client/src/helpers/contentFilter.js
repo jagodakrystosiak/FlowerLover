@@ -24,7 +24,7 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
         let filteredContent = [];
         let i = 0;
         content.forEach((content) => {
-            if (content?.title.includes(wordToFind) || content?.content.includes(wordToFind)) {
+            if (content?.title.toUpperCase().includes(wordToFind.toUpperCase()) || content?.content.toUpperCase().includes(wordToFind.toUpperCase())) {
                 filteredContent[i] = content;
                 i++;
             }
