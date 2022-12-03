@@ -17,7 +17,9 @@ const PATH = {
     article: "/articles/?articleId=",
     post: "/posts/?postId=",
     plant: "/plants/?plantId=",
-    comment: "/comments/?commentId="
+    comment: "/comments/?commentId=",
+    /* GET BY USERNAME */
+    user: "/api/user?username="
 }
 
 const useFetchers = () => {
@@ -32,9 +34,9 @@ const useFetchers = () => {
         return response.data;
     }
 
-    const getDataById = async (dataType, id) => {
-        console.log(`Fetching ${dataType} with id=${id}...`);
-        const response = auth ? await axiosPrivate.get(PATH[dataType] + id) : await axios.get(PATH[dataType] + id);
+    const getDataById = async (dataType, params) => {
+        console.log(`Fetching ${dataType} with ${params}...`);
+        const response = auth ? await axiosPrivate.get(PATH[dataType] + params) : await axios.get(PATH[dataType] + params);
         if(!response) return null;
         console.log(`${dataType}: `, response.data);
         return response.data;
@@ -54,8 +56,10 @@ const useFetchers = () => {
     const fetchPlantById = (id) => getDataById("plant", id);
     const fetchCommentById = (id) => getDataById("comment", id);
 
+    const fetchUser = (username) => getDataById("user", username);
+
     return {fetchCategories, fetchArticles, fetchPosts, fetchSpecies, fetchGroupsOfPlants, fetchPlants, fetchComments,
-        fetchCategoryById, fetchArticleById, fetchPostById, fetchPlantById, fetchCommentById };
+        fetchCategoryById, fetchArticleById, fetchPostById, fetchPlantById, fetchCommentById, fetchUser };
 }
 
 export default useFetchers;

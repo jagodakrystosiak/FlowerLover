@@ -5,6 +5,7 @@ import useFetchers from "../../../hooks/useFetchers";
 import FormErrors from "../../../components/FormErrors/FormErrors";
 import Button from "../../../components/Button/Button";
 import "./CreateArticle.scss";
+import "./../../Post/Create/CreatePost.scss"
 import useSenders from "../../../hooks/useSenders";
 
 const CreateArticle = () => {
@@ -41,13 +42,12 @@ const CreateArticle = () => {
         if(article.categoriesIds.length<1) _errors.push('Minimum jedna kategoria jest wymagana');
         if (_errors.length) return setErrors(_errors);
 
-        if(errors === []) {
         try {
             await sendArticle(article);
             navigate("/articles");
         } catch (error) {
             setErrors(["Nie udało sie utworzyć post, spróbuj ponownie później", error])
-        }}
+        }
     }
 
     return (
@@ -72,7 +72,7 @@ const CreateArticle = () => {
                     <div className="createpost__cartegories">
                         {categories.map((category) =>
                             <div>
-                                <input id={category.name} type="radio" value={category.id} onChange={(event) => setArticle({...article, categoriesIds: [...article.categoriesIds, +event.target.value]})}/>
+                                <input id={category.name} type="checkbox" value={category.id} onChange={(event) => setArticle({...article, categoriesIds: [...article.categoriesIds, +event.target.value]})}/>
                                 <label htmlFor={category.name}>{category.name}</label>
                             </div>
                         )}

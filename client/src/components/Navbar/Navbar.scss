@@ -147,13 +147,31 @@
             text-align: center;
 
             transition: all .5s ease-in-out;
+        }
 
-            & li {
-                margin-top: $grid-base*3;
+        & li {
+            margin-top: $grid-base*3;
+        }
+
+        & a {
+            color: $white-color;
+        }
+
+        &__user {
+            background-color: $gray-light-color;
+            margin: $grid-base*4 0;
+            padding: $grid-base*.5 0 $grid-base*3 0;
+            border-radius: $border-radius;
+
+            & li a {
+                color: $gray-dark-color;
             }
 
-            & a {
-                color: $white-color;
+            &-name {
+                padding-bottom: $grid-base*2;
+                border-bottom: 2px solid $gray-color;
+                font-weight: bold;
+                color: $base-light-color;
             }
         }
     }
