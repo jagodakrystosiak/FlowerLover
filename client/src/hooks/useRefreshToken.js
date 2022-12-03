@@ -5,8 +5,6 @@ import AppContext from '../contexts/AppContext';
 
 const useRefreshToken = () => {
     const { auth, setAuth, logout } = useContext(AppContext);
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const refresh = async () => {
         if (auth?.refresh_token) {
@@ -19,7 +17,7 @@ const useRefreshToken = () => {
             }).catch((err) => {
                 console.log(err);
                 logout();
-                navigate(location);
+                window.location.reload();
                 return null;
             }).then((res) => {
                 const response = res;

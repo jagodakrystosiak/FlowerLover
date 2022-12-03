@@ -1,0 +1,17 @@
+@import "./../../sass/variables";
+
+.profile {
+    margin: $grid-base*10 0;
+    
+    &__heading {
+        font-size: $font-size-3;
+        color: $base-darker-color;
+    }
+
+    &__data, &__plants, &__posts ul, &__articles ul {
+        background-color: $white-color;
+        margin: $grid-base*2 0;
+        padding: $grid-base*3;
+        border-radius: $border-radius;
+    }
+}

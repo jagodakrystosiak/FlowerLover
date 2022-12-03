@@ -7,16 +7,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import AppContext from "./contexts/AppContext";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
-import CreatePost from "./pages/Post/Create/CreatePost";
-import CreateArticle from "./pages/Article/Create/CreateArticle";
-import Unauthorized from "./pages/Authorization/Unauthorized/Unauthorized";
-import ShowPlant from "./pages/Plant/ShowPlant";
-import EditPost from "./pages/Post/Edit/EditPost";
-import Users from "./pages/Users/Users";
-import AddRecords from "./pages/AddRecords/AddRecords";
 import jwtDecode from "jwt-decode";
-import Records from "./pages/Records/Records";
-
+import useRefreshToken from "./hooks/useRefreshToken";
+import Profile from "./pages/Profile/Profile";
 
 //Funkcja lazy importuje komponenty dopiero kiedy wybierzemy odpowiedni routing
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -27,10 +20,19 @@ const ShowPost = lazy(() => import("./pages/Post/Show/ShowPost"));
 const ShowArticle = lazy(() => import("./pages/Article/Show/ShowArticle"));
 const Register = lazy(() => import("./pages/Authorization/Register/Register"));
 const Login = lazy(() => import("./pages/Authorization/Login/Login"));
+const CreatePost = lazy(() => import("./pages/Post/Create/CreatePost"));
+const CreateArticle = lazy(() => import("./pages/Article/Create/CreateArticle"));
+const Unauthorized = lazy(() => import("./pages/Authorization/Unauthorized/Unauthorized"));
+const ShowPlant = lazy(() => import("./pages/Plant/ShowPlant"));
+const EditPost = lazy(() => import("./pages/Post/Edit/EditPost"));
+const Users = lazy(() => import("./pages/Users/Users"));
+const AddRecords = lazy(() => import("./pages/AddRecords/AddRecords"));
+const Records = lazy(() => import("./pages/Records/Records"));
 
 const App = () => {
     const [isInitiated, setIsInitiated] = useState(false);
     const [auth, setAuth] = useState(null);
+    const refresh = useRefreshToken();
 
     useEffect(() => {
         init();
@@ -38,26 +40,34 @@ const App = () => {
 
     const logout = () => {
         setAuth(null);
-        localStorage.setItem('auth', null);
+        localStorage.removeItem('auth');
     }
 
     const init = async () => {
+
         if ("auth" in localStorage) {
+
             const accessToken = JSON.parse(localStorage.getItem("auth"))?.access_token;
             const refreshToken = JSON.parse(localStorage.getItem("auth"))?.refresh_token;
+
             const decoded = jwtDecode(accessToken);
-            console.log(decoded);
+
             setAuth({
                 username: decoded?.sub,
                 roles: decoded?.roles,
                 access_token: accessToken,
                 refresh_token: refreshToken
             });
+
             console.log(`${decoded?.sub} log in`);
         }
         setIsInitiated(true);
+
+        setTimeout(()=>{
+            refresh();
+        }, (10*60000)-500);
+
     };
-    console.log(auth);
 
     return (
         <>
@@ -81,13 +91,14 @@ const App = () => {
                                 <Route exact path="/login" element={<Login />} />
                                 <Route exact path="/unauthorized" element={<Unauthorized />} />
 
-                                {/* Scieżki tylko dla zalogowanych użytkowników*/}
+                                {/* Scieżki tylko dla zalogowanych użytkowników oraz administratorów */}
                                 <Route element={<RequireAuth allowedRoles={["ROLE_USER", "ROLE_ADMIN"]} />}>
                                     <Route exact path="/post/create" element={<CreatePost />} />
                                     <Route exact path="/post/edit/:id" element={<EditPost />} />
                                     <Route exact path="/article/create" element={<CreateArticle />} />
+                                    <Route exact path="/profile" element={<Profile />} />
                                 </Route>
-                                {/* Scieżki tylko dla adminów */}
+                                {/* Scieżki tylko dla administratorów */}
                                 <Route element={<RequireAuth allowedRoles={"ROLE_ADMIN"} />}>
                                     <Route exact path="/users" element={<Users />} />
                                     <Route exact path="/records" element={<Records />} />

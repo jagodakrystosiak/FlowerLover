@@ -1,5 +1,6 @@
 import React from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
+import axiosPrivate from "../api/axios";
 
 const PATH = {
     category: "/categories/new-category/",
@@ -28,7 +29,7 @@ const useSenders = () => {
     const sendSpecie = (data) => postData("specie", data);
     const sendPlant = (data) => postData("plant", data);
 
-    return { sendCategory, sendArticle, sendPost, sendGroupOfPlant, sendSpecie, sendPlant };
+    return { sendCategory, sendArticle, sendPost, sendGroupOfPlant, sendSpecie, sendPlant, sendComment };
 }
 
 export default useSenders;

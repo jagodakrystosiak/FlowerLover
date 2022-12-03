@@ -7,10 +7,11 @@ import Searchbar from "../../components/Searchbar/Searchbar";
 import AppContext from "../../contexts/AppContext";
 import useFetchers from "../../hooks/useFetchers";
 import contentFilter from "../../helpers/contentFilter";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Posts = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { fetchPosts, fetchCategories } = useFetchers();
     const { auth } = useContext(AppContext);
     const [posts, setPosts] = useState([]);
