@@ -3,6 +3,8 @@ import './PlantBox.scss';
 import Button from '../Button/Button';
 import { useNavigate } from "react-router-dom";
 
+//karta rośliny
+
 const PlantBox = ({ plant }) => {
     const navigate = useNavigate();
     

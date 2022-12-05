@@ -1,6 +1,8 @@
 import React from "react";
 import './Footer.scss';
 
+//Wszelkie przekierowania w stópce
+
 function Footer () {
     return(
         <footer>

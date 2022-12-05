@@ -11,7 +11,7 @@ import jwtDecode from "jwt-decode";
 import useRefreshToken from "./hooks/useRefreshToken";
 import Profile from "./pages/Profile/Profile";
 
-//Funkcja lazy importuje komponenty dopiero kiedy wybierzemy odpowiedni routing
+//Funkcja lazy importująca komponenty dopiero kiedy wybierze się odpowiedni routing
 const Home = lazy(() => import("./pages/Home/Home"));
 const Posts = lazy(() => import("./pages/Posts/Posts"));
 const Articles = lazy(() => import("./pages/Articles/Articles"));
@@ -91,14 +91,14 @@ const App = () => {
                                 <Route exact path="/login" element={<Login />} />
                                 <Route exact path="/unauthorized" element={<Unauthorized />} />
 
-                                {/* Scieżki tylko dla zalogowanych użytkowników oraz administratorów */}
+                                {/* Scieżki TYLKO dla zalogowanych użytkowników oraz administratorów */}
                                 <Route element={<RequireAuth allowedRoles={["ROLE_USER", "ROLE_ADMIN"]} />}>
                                     <Route exact path="/post/create" element={<CreatePost />} />
                                     <Route exact path="/post/edit/:id" element={<EditPost />} />
                                     <Route exact path="/article/create" element={<CreateArticle />} />
                                     <Route exact path="/profile" element={<Profile />} />
                                 </Route>
-                                {/* Scieżki tylko dla administratorów */}
+                                {/* Scieżki TYLKO dla administratorów */}
                                 <Route element={<RequireAuth allowedRoles={"ROLE_ADMIN"} />}>
                                     <Route exact path="/users" element={<Users />} />
                                     <Route exact path="/records" element={<Records />} />

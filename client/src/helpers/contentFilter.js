@@ -3,7 +3,7 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
 
     let content = data;
 
-    const sortContent = (a, b) => {
+    const sortContent = (a, b) => { //sposob sortowania
         switch (sortType) {
             case 'title':
                 if (a.title > b.title) return 1;
@@ -20,7 +20,7 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
         }
     }
 
-    if (wordToFind !== "") {
+    if (wordToFind !== "") { //wyszukanie po slowie
         let filteredContent = [];
         let i = 0;
         content.forEach((content) => {
@@ -32,7 +32,7 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
         content = filteredContent;
     }
 
-    if (filterByCategory !== null) {
+    if (filterByCategory !== null) { //gdy nie ma filtru
         let filteredContent = [];
         let i = 0;
         content.forEach((content) => {
@@ -44,7 +44,7 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
         content = filteredContent;
     }
 
-    return content.sort(sortContent);
+    return content.sort(sortContent); //zwroc posortowane
 }
 
 export default contentFilter;

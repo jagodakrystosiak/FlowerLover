@@ -1,6 +1,8 @@
 import React from "react";
 import './FormErrors.scss';
 
+//łapanie błędów formularza
+
 const FormErrors = ({errors}) => {
     return(
         <div className="form-errors">

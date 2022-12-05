@@ -1,12 +1,13 @@
+//jak wyszukujemy rośliny
 
 const plantsFilter = (data, {wordToFind, filterBySpecie, filterByGroupOfPlants}) => {
     
     let plants = data;
 
-    if (wordToFind !== "") {
+    if (wordToFind !== "") { //jesli user podal slowo
         let filteredPlants = [];
         let i = 0;
-        plants.forEach((plant) => {
+        plants.forEach((plant) => { //szukanie slowa w nazwie i opisie
             if (plant?.customaryName.toUpperCase().includes(wordToFind.toUpperCase()) || 
             plant?.name.toUpperCase().includes(wordToFind.toUpperCase()) || 
             plant?.description.toUpperCase().includes(wordToFind.toUpperCase())) {
@@ -17,7 +18,7 @@ const plantsFilter = (data, {wordToFind, filterBySpecie, filterByGroupOfPlants})
         plants = filteredPlants;
     }
 
-    if (filterBySpecie !== null) {
+    if (filterBySpecie !== null) { //jesli jest  gatunek
         let filteredPlants = [];
         let i = 0;
         plants.forEach((plant) => {
@@ -29,7 +30,7 @@ const plantsFilter = (data, {wordToFind, filterBySpecie, filterByGroupOfPlants})
         plants = filteredPlants;
     }
 
-    if (filterByGroupOfPlants !== null) {
+    if (filterByGroupOfPlants !== null) { //jesli jest podana grupa
         let filteredPlants = [];
         let i = 0;
         plants.forEach((plant) => {
@@ -41,7 +42,7 @@ const plantsFilter = (data, {wordToFind, filterBySpecie, filterByGroupOfPlants})
         plants = filteredPlants;
     }
 
-    return plants;
+    return plants; //zwroc liste roslin spelniajaca wymogi
 }
 
 export default plantsFilter;

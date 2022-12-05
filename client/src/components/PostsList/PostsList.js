@@ -2,6 +2,8 @@ import React from "react";
 import PostBox from "../PostBox/PostBox";
 import './PostsList.scss';
 
+//lista postów
+
 const Posts = ({ posts, loading, postsLenght }) => {
     if (loading) {
         return <h2>Loading...</h2>;

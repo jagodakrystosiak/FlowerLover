@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import AppContext from "../../contexts/AppContext";
 
+//czy user ma pozwolenie by tu wejsc
+
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useContext(AppContext);
     const location = useLocation();

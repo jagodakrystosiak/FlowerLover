@@ -1,6 +1,8 @@
 import React from "react";
 import './Searchbar.scss';
 
+//wyszukiwarka
+
 function Searchbar ({ className, onChange }) {
     return(
         <form className={"searchbar " + className}>

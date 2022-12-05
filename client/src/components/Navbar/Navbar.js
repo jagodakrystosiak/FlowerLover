@@ -5,6 +5,8 @@ import Button from "../Button/Button";
 import Searchbar from "../Searchbar/Searchbar";
 import './Navbar.scss';
 
+//Pasek nawigacyjny
+
 const Navbar = () => {
     const navigate = useNavigate();
     const { auth, logout } = useContext(AppContext);

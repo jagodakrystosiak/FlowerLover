@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./PlantList.scss";
 import PlantBox from "../PlantBox/PlantBox";
 
+//Lista roślin
+
 const PlantList = ({ plants }) => {
 
     return (
