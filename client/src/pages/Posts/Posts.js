@@ -7,11 +7,10 @@ import Searchbar from "../../components/Searchbar/Searchbar";
 import AppContext from "../../contexts/AppContext";
 import useFetchers from "../../hooks/useFetchers";
 import contentFilter from "../../helpers/contentFilter";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Posts = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { fetchPosts, fetchCategories } = useFetchers();
     const { auth } = useContext(AppContext);
     const [posts, setPosts] = useState([]);
@@ -42,6 +41,9 @@ const Posts = () => {
     const getCategories = async () => {
         const data = await fetchCategories();
         setCategories(data);
+        
+        //dodajemy do pobranych postów atrybut categories, który przechowuje tablice obiektów kategoria {id, name}
+        //aby móc potem w łatwy sposób wyświetlić nazwy kategorii w używanych komponentach
         for (let i = 0; i < posts.length; i++) {
             for (let j = 0; j < categories.length; j++) {
                 var newCategories = [];
@@ -60,8 +62,10 @@ const Posts = () => {
     const handleSearchPosts = (event) => setFilterOptions({...filterOptions, wordToFind: event.target.value});
     const handleCategoryButtonClick = (category) => { filterOptions.filterByCategory === category ? setFilterOptions({...filterOptions, filterByCategory: null}) : setFilterOptions({...filterOptions, filterByCategory: categories.find((element) => element === category)})};
 
+    //ustawia numer aktualnej strony w paginacji
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    //dzieli posty w zależności od podanej ilości postów na stronie oraz strony w paginacji
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -100,7 +104,6 @@ const Posts = () => {
                 {currentPosts.length ? <PostsList posts={currentPosts} postsLenght={currentPosts.length} loading={loading} /> : <h2 className="content__none">Brak artykułów do wyświetlenia</h2>}
                 <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} currentPage={currentPage} paginate={paginate} />
             </div>
-
         </div>
     )
 }

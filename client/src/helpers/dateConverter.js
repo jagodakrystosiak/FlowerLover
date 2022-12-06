@@ -9,7 +9,7 @@ const dateConverter = (date) => {
             dateString = "";
         }
         // warunki liczbowe w else if to są sekundy w miesiącu/godzinie/dniu
-        else if (diffrence > 86400000) { //roznica miesieczna
+        else if (diffrence > 86400000) { //roznica ponad 24 godziny
             let month = dateObject.getMonth() + 1;
             dateString = dateObject.getDate() + "-" + month + "-" + dateObject.getFullYear();
 

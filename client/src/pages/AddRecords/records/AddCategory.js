@@ -25,8 +25,6 @@ const AddCategory = () => {
                 setErrors(["Nie udało sie utworzyć kategorii", "" + error])
             }
         }
-
-
     }
 
     return (

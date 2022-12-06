@@ -4,7 +4,6 @@ import AppContext from "../../../contexts/AppContext";
 import FormErrors from "../../../components/FormErrors/FormErrors";
 import "./../Authorization.scss";
 import { useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
 import jwtDecode from "jwt-decode";
 import axios from "../../../api/axios";
 
