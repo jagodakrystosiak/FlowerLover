@@ -19,7 +19,7 @@ const Navbar = () => {
             <div className="navbar">
                 <div className="container">
                     <nav>
-                        <h1 className="navbar__logo"><Link to="/">Logo strony</Link></h1>
+                        <h1 className="navbar__logo"><Link to="/">Flower<span>Lover</span></Link></h1>
                         <ul className="navbar__nav">
                             <li><Link to='/articles'>Porady</Link></li>
                             <li><Link to="/posts">Forum</Link></li>

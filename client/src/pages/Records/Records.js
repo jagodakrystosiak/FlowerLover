@@ -4,11 +4,10 @@ import useFetchers from "../../hooks/useFetchers";
 import "./Records.scss";
 
 const Records = () => {
-    const { fetchArticles, fetchCategories, fetchComments,
+    const { fetchArticles, fetchCategories,
         fetchGroupsOfPlants, fetchPlants, fetchPosts, fetchSpecies } = useFetchers();
     const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [comments, setComments] = useState([]);
     const [groupsOfPlants, setGroupsOfPlants] = useState([]);
     const [plants, setPlants] = useState([]);
     const [posts, setPosts] = useState([]);

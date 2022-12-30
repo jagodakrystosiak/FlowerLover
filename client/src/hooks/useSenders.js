@@ -1,6 +1,4 @@
-import React from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
-import axiosPrivate from "../api/axios";
 
 const PATH = {
     category: "/categories/new-category/",

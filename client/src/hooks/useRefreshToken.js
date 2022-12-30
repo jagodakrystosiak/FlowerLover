@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import AppContext from '../contexts/AppContext';
 
 const useRefreshToken = () => {

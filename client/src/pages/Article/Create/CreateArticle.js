@@ -4,7 +4,6 @@ import AppContext from "../../../contexts/AppContext";
 import useFetchers from "../../../hooks/useFetchers";
 import FormErrors from "../../../components/FormErrors/FormErrors";
 import Button from "../../../components/Button/Button";
-import "./CreateArticle.scss";
 import "./../../Post/Create/CreatePost.scss"
 import useSenders from "../../../hooks/useSenders";
 

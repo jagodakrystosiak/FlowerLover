@@ -2,10 +2,14 @@
 @import "./../../sass/mixins";
 
 .authorization {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: $grid-base*5 $grid-base*10;
-    margin-bottom: $grid-base*2.8;
+    margin-top: $grid-base*10;
+
+    @include large-up {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: $grid-base*5 $grid-base*10;
+        margin-bottom: $grid-base*2.8;
+    }
 
     &--login {
         margin-bottom: $grid-base*14.4;

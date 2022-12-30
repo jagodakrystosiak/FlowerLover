@@ -15,7 +15,6 @@ const Posts = () => {
     const { auth } = useContext(AppContext);
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(10);
     const [filterOptions, setFilterOptions] = useState({
@@ -101,7 +100,7 @@ const Posts = () => {
                     </p>
                     {auth ? <Button onClick={() => navigate("/post/create")}>Utwórz nowy post</Button> : <p>Zaloguj się aby móc dodawać posty</p>}
                 </div>
-                {currentPosts.length ? <PostsList posts={currentPosts} postsLenght={currentPosts.length} loading={loading} /> : <h2 className="content__none">Brak artykułów do wyświetlenia</h2>}
+                {currentPosts.length ? <PostsList posts={currentPosts} postsLenght={currentPosts.length} /> : <h2 className="content__none">Brak artykułów do wyświetlenia</h2>}
                 <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} currentPage={currentPage} paginate={paginate} />
             </div>
         </div>

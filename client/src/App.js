@@ -25,7 +25,6 @@ const CreateArticle = lazy(() => import("./pages/Article/Create/CreateArticle"))
 const Unauthorized = lazy(() => import("./pages/Authorization/Unauthorized/Unauthorized"));
 const ShowPlant = lazy(() => import("./pages/Plant/ShowPlant"));
 const EditPost = lazy(() => import("./pages/Post/Edit/EditPost"));
-const Users = lazy(() => import("./pages/Users/Users"));
 const AddRecords = lazy(() => import("./pages/AddRecords/AddRecords"));
 const Records = lazy(() => import("./pages/Records/Records"));
 
@@ -100,7 +99,6 @@ const App = () => {
                                 </Route>
                                 {/* Scieżki TYLKO dla administratorów */}
                                 <Route element={<RequireAuth allowedRoles={"ROLE_ADMIN"} />}>
-                                    <Route exact path="/users" element={<Users />} />
                                     <Route exact path="/records" element={<Records />} />
                                     <Route exact path="/records/add" element={<AddRecords />} />
                                 </Route>

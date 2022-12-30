@@ -1,24 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import ArticleBox from "../../components/ArticleBox/ArticleBox";
 import Pagination from '../../components/Pagination/Pagination';
 import Searchbar from "../../components/Searchbar/Searchbar";
 import Button from "../../components/Button/Button";
 import './../Posts/Posts.scss';
 import ArticleList from "../../components/ArticleList/ArticleList";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import AppContext from "../../contexts/AppContext";
 import useFetchers from "../../hooks/useFetchers";
 import contentFilter from "../../helpers/contentFilter";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Articles = () => {
     const navigate = useNavigate();
     const { fetchArticles, fetchCategories } = useFetchers();
     const { auth } = useContext(AppContext);
-    const axiosPrivate = useAxiosPrivate();
     const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(false); // do implementacji
     const [currentPage, setCurrentPage] = useState(1);
     const [articlesPerPage, setArticlesPerPage] = useState(12);
     const [filterOptions, setFilterOptions] = useState({

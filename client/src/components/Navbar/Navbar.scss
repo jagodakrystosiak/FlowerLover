@@ -33,6 +33,10 @@
         padding-left: 20px;
         flex-grow: 2;
 
+        & span {
+            color: $base-darker-color;
+        }
+
         @include large-up {
             grid-area: 1;
             font-size: $font-size-3;

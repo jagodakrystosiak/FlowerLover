@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import PlantBox from "../../components/PlantBox/PlantBox";
+import React, { useEffect, useState } from "react";
 import PlantList from "../../components/PlantList/PlantList";
 import Searchbar from "../../components/Searchbar/Searchbar";
-import AppContext from "../../contexts/AppContext";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useFetchers from "../../hooks/useFetchers";
 import './../Posts/Posts.scss';
 import plantsFilter from "../../helpers/plantsFilter";
-import Button from "../../components/Button/Button";
 
 const Plants = () => {
     const { fetchGroupsOfPlants, fetchSpecies, fetchPlants } = useFetchers();
@@ -37,7 +33,6 @@ const Plants = () => {
 
     const getSpecies = async () => {
         const data = await fetchSpecies();
-        console.log(data);
         setSpecies(data);
     }
 
@@ -45,8 +40,6 @@ const Plants = () => {
         const data = await fetchGroupsOfPlants();
         setGroupOfPlants(data);
     }
-
-    const handleSearchPlants = (event) => setFilterOptions(prev=>({...prev, wordToFind: event.target.value}));
 
     return (
         <div className="container content">

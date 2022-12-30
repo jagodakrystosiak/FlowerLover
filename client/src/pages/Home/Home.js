@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import './Home.scss';
 import Jumbotron from "./Jumbotron/Jumbotron";
 import PostsList from "../../components/PostsList/PostsList";
-import Pagination from '../../components/Pagination/Pagination';
 import useFetchers from "../../hooks/useFetchers";
 import Button from "../../components/Button/Button";
 
@@ -11,10 +10,7 @@ const Home = () => {
     const [articles, setArticles] = useState([]);
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [tags, setTags] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(10);
 
     useEffect(() => {
         getPosts();

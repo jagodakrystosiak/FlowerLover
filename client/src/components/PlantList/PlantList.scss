@@ -7,7 +7,12 @@
     gap: 1%;
 
     & .plantbox{
-        width: 24%;
+        width: 49%;
         margin-bottom: $grid-base;
+
+        @include medium-up {
+            width: 24%;
+            margin-bottom: $grid-base;
+        }
     } 
 }

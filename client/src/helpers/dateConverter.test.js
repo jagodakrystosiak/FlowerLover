@@ -23,7 +23,8 @@ test('propertly convert date', () => {
         `${yesterday.getDate()}-${yesterday.getMonth()+1}-${yesterday.getFullYear()}`
     ]
     for(let i=0; i<dates.lenght; i++){
-        let dateString = `${dates[i].getFullYear()}-${dates[i].getMonth()+1}-${dates[i].getDate()}T${dates[i].getHours()}:${dates[i].getMinutes()}`;
+        let dateString = `${dates[i].getFullYear()}-${dates[i].getMonth()+1}-
+        ${dates[i].getDate()}T${dates[i].getHours()}:${dates[i].getMinutes()}`;
         expect(dateConverter(dateString)).toBe(expect[i]);
     }
 });
