@@ -30,8 +30,8 @@ const ShowPlant = () => {
                     <h1 className="plant__name">{plant?.name}</h1>
                     <p className="plant__cname">"{plant?.customaryName}"</p>
                     <p className="plant__desc">{plant?.description}</p>
-                    <p className="plant__group">Grupa roślin: </p>
-                    <p className="plant__group">Gatunek roślin: </p>
+                    <p className="plant__group">Grupa roślin: {plant?.groupOfPlant}</p>
+                    <p className="plant__group">Gatunek roślin: {plant?.specie}</p>
                     <div className="plant__row">
                         <h2>Wymagania</h2>
                         <p>{plant?.demands}</p>

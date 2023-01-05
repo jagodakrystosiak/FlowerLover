@@ -9,7 +9,6 @@ import AppContext from "./contexts/AppContext";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import jwtDecode from "jwt-decode";
 import useRefreshToken from "./hooks/useRefreshToken";
-import Profile from "./pages/Profile/Profile";
 
 //Funkcja lazy importująca komponenty dopiero kiedy wybierze się odpowiedni routing
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -24,9 +23,9 @@ const CreatePost = lazy(() => import("./pages/Post/Create/CreatePost"));
 const CreateArticle = lazy(() => import("./pages/Article/Create/CreateArticle"));
 const Unauthorized = lazy(() => import("./pages/Authorization/Unauthorized/Unauthorized"));
 const ShowPlant = lazy(() => import("./pages/Plant/ShowPlant"));
-const EditPost = lazy(() => import("./pages/Post/Edit/EditPost"));
 const AddRecords = lazy(() => import("./pages/AddRecords/AddRecords"));
 const Records = lazy(() => import("./pages/Records/Records"));
+const Profile = lazy(() => import("./pages/Profile/Profile"));
 
 const App = () => {
     const [isInitiated, setIsInitiated] = useState(false);
@@ -35,14 +34,14 @@ const App = () => {
 
     useEffect(() => {
         init();
-    }, []);
+    },[]);
 
     const logout = () => {
         setAuth(null);
         localStorage.removeItem('auth');
     }
 
-    const init = async () => {
+    const init =  () => {
 
         if ("auth" in localStorage) {
 
@@ -93,7 +92,6 @@ const App = () => {
                                 {/* Scieżki TYLKO dla zalogowanych użytkowników oraz administratorów */}
                                 <Route element={<RequireAuth allowedRoles={["ROLE_USER", "ROLE_ADMIN"]} />}>
                                     <Route exact path="/post/create" element={<CreatePost />} />
-                                    <Route exact path="/post/edit/:id" element={<EditPost />} />
                                     <Route exact path="/article/create" element={<CreateArticle />} />
                                     <Route exact path="/profile" element={<Profile />} />
                                 </Route>

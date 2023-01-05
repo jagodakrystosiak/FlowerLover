@@ -57,13 +57,19 @@
 
             &>li {
                 padding: $grid-base*0.5;
-            }
-
-            &>li {
                 margin-left: $grid-base*0.5;
 
                 & button {
                     cursor: pointer;
+                }
+
+                & .plants-btn {
+                    background-color: transparent;
+                border: none;
+                
+                &:hover {
+                    color: $base-dark-color;
+                }
                 }
             }
         }

@@ -25,7 +25,9 @@ const Navbar = () => {
                             <li><Link to="/posts">Forum</Link></li>
                             <li><Link to='/plants'>Rośliny</Link></li>
                         </ul>
-                        <div className="navbar__search"><Searchbar></Searchbar></div>
+                        <div className="navbar__search">
+                            <Searchbar></Searchbar>
+                        </div>
                         <ul className="navbar__user">
                             {auth ?
                                 <>
@@ -65,12 +67,12 @@ const Navbar = () => {
                                             <li><a href="/users">Użytkownicy</a></li>
                                         </> : ""}
                                         <li><Button className="btn--darker" onClick={() => logout()}>Wyloguj się</Button></li>
-                                        </div>
-                                        :
-                                        <><li><Button onClick={() => navigate('/login')} className="btn--lighter">Zaloguj się</Button></li>
-                                            <li><Button onClick={() => navigate('/register')} className="btn--dark">Zarejestruj się</Button></li></>
+                                    </div>
+                                    :
+                                    <><li><Button onClick={() => navigate('/login')} className="btn--lighter">Zaloguj się</Button></li>
+                                        <li><Button onClick={() => navigate('/register')} className="btn--dark">Zarejestruj się</Button></li></>
                                 }
-                                    </ul>
+                            </ul>
                         </div>
                         <div className="navbar--mobile">
                             <button onClick={() => setShowMenuMobile(!showMenuMobile)}><i className="fa-solid fa-bars"></i></button>
@@ -88,10 +90,10 @@ const Navbar = () => {
                                             <li><a href="/users">Użytkownicy</a></li>
                                         </> : ""}
                                         <li><Button className="btn--darker" onClick={() => logout()}>Wyloguj się</Button></li>
-                                        </div>
-                                        :
-                                        <><li><Button onClick={() => navigate('/login')} className="btn--lighter">Zaloguj się</Button></li>
-                                            <li><Button onClick={() => navigate('/register')} className="btn--dark">Zarejestruj się</Button></li></>
+                                    </div>
+                                    :
+                                    <><li><Button onClick={() => navigate('/login')} className="btn--lighter">Zaloguj się</Button></li>
+                                        <li><Button onClick={() => navigate('/register')} className="btn--dark">Zarejestruj się</Button></li></>
                                 }
                             </ul>
                         </div>
@@ -104,3 +106,4 @@ const Navbar = () => {
 }
 
 export default Navbar;
+

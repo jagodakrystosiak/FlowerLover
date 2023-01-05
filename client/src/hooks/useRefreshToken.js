@@ -10,7 +10,7 @@ const useRefreshToken = () => {
             axios.get('http://localhost:8080/api/token/refresh', {
                 withCredentials: true,
                 headers: {
-                    Authorization: auth?.refresh_token ? `Bearer ${auth?.refresh_token}` : null
+                    Authorization: `Bearer ${auth?.refresh_token}`
                 },
                 mode: 'cors'
             }).catch((err) => {
@@ -25,18 +25,20 @@ const useRefreshToken = () => {
                         console.log(JSON.stringify(prev));
                         console.log(response.data.access_token);
                         console.log(response.data.refresh_token);
-                        return { ...prev, access_token: response.data.access_token, refresh_token: response.data.refresh_token }
+                        return { ...prev, access_token: response.data.access_token, 
+                            refresh_token: response.data.refresh_token }
                     })
-                    localStorage.setItem("auth", JSON.stringify({ access_token: response.data.access_token, refresh_token: response.data.refresh_token }));
+                    localStorage.setItem("auth", JSON.stringify({ 
+                        access_token: response.data.access_token, 
+                        refresh_token: response.data.refresh_token }));
                 }
-                else localStorage.removeItem("auth");
+                else logout();
                 return response?.data?.access_token;
             });
         } else {
-            localStorage.removeItem("auth");
+            logout();
             return null;
         }
-
     }
     return refresh;
 };

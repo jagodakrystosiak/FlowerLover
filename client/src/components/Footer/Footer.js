@@ -61,12 +61,12 @@ function Footer () {
                         <h3>Kontakt</h3>
                         <ul>
                             <li>Email kontaktowy</li>
-                            <li>kontakt@nasza_strona.pl</li>
+                            <li>kontakt@flowerlover.pl</li>
                         </ul>
                     </div>
                     <div className="footer__copyright">
-                        <h3>Logo strony</h3>
-                        <p>Copyright &copy; 2022 - 2023 by Grupa nasza-strona.pl</p>
+                        <h3>Flower<span>Lover</span></h3>
+                        <p>Copyright &copy; 2022 - 2023 by Grupa flowerlover.pl</p>
                     </div>
                 </div>
             </div>

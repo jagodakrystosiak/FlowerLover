@@ -24,7 +24,8 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
         let filteredContent = [];
         let i = 0;
         content.forEach((content) => {
-            if (content?.title.toUpperCase().includes(wordToFind.toUpperCase()) || content?.content.toUpperCase().includes(wordToFind.toUpperCase())) {
+            if (content?.title.toUpperCase().includes(wordToFind.toUpperCase()) || 
+            content?.content.toUpperCase().includes(wordToFind.toUpperCase())) {
                 filteredContent[i] = content;
                 i++;
             }
@@ -48,3 +49,4 @@ const contentFilter = (data, { wordToFind, filterByCategory, sortType }) => {
 }
 
 export default contentFilter;
+

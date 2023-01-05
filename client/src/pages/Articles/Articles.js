@@ -52,7 +52,8 @@ const Articles = () => {
     const handleArticlePerPageChange = (event) => setArticlesPerPage(event.target.value);
     const handleSortArticles = (event) => setFilterOptions({...filterOptions, sortType: event.target.value});
     const handleSearchArticles = (event) => setFilterOptions({...filterOptions, wordToFind: event.target.value});
-    const handleCategoryButtonClick = (category) => { filterOptions.filterByCategory === category ? setFilterOptions({...filterOptions, filterByCategory: null}) : setFilterOptions({...filterOptions, filterByCategory: categories.find((element) => element === category)})};
+    const handleCategoryButtonClick = (category) => { filterOptions.filterByCategory === category ? 
+        setFilterOptions({...filterOptions, filterByCategory: null}) : setFilterOptions({...filterOptions, filterByCategory: categories.find((element) => element === category)})};
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -110,3 +111,4 @@ const Articles = () => {
 }
 
 export default Articles;
+

@@ -4,14 +4,14 @@ import Button from "./../../../components/Button/Button";
 import FormErrors from "../../../components/FormErrors/FormErrors.js";
 import "./CreatePost.scss";
 import { useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useSenders from "../../../hooks/useSenders";
+import useFetchers from "../../../hooks/useFetchers";
 
 const CreatePost = () => {
+    const { fetchCategories } = useFetchers();
     const { sendPost } = useSenders();
     const { auth } = useContext(AppContext);
     const navigate = useNavigate();
-    const axiosPrivate = useAxiosPrivate();
     const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState([]);
     const [post, setPost] = useState({
@@ -28,7 +28,7 @@ const CreatePost = () => {
     }, []);
 
     const getCategories = async () => {
-        const { data } = await axiosPrivate.get("/categories/all");
+        const data = await fetchCategories();
         setCategories(data);
     }
 
@@ -42,14 +42,12 @@ const CreatePost = () => {
         if (post.categoriesIds.length < 1) _errors.push('Minimum jedna kategoria jest wymagana');
         if (_errors.length) return setErrors(_errors);
 
-        //if (errors === []) {
             try {
                 await sendPost(post);
                 navigate("/posts");
             } catch (error) {
                 setErrors(["Nie udało sie utworzyć post, spróbuj ponownie później"])
             }
-        //}
     }
 
     return (
@@ -72,12 +70,12 @@ const CreatePost = () => {
                 <fieldset>
                     <legend>Kategorie</legend>
                     <div className="createpost__cartegories">
-                        {categories.map((category) =>
+                        {categories ? categories.map((category) =>
                             <div>
                                 <input id={category.name} type="checkbox" value={category.id} onChange={(event) => setPost({ ...post, categoriesIds: [...post.categoriesIds, +event.target.value] })} />
                                 <label htmlFor={category.name}>{category.name}</label>
                             </div>
-                        )}
+                        ) : <></>}
                     </div>
                 </fieldset>
                 <div className="createpost__buttons">
@@ -90,3 +88,4 @@ const CreatePost = () => {
 }
 
 export default CreatePost;
+

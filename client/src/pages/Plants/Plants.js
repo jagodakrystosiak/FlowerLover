@@ -15,15 +15,15 @@ const Plants = () => {
         filterBySpecie: null,
         filterByGroupOfPlants: null
     })
- 
+
     useEffect(() => {
         getSpecies();
         getGroupOfPlants();
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         getPlants();
-    },[filterOptions])
+    }, [filterOptions])
 
     const getPlants = async () => {
         const data = await fetchPlants();
@@ -48,18 +48,20 @@ const Plants = () => {
                 <h2>Gatunki</h2>
                 <ul>
                     {species.length ? species.map((spec, index) => <li key={index}>
-                        <a onClick={(spec) => setFilterOptions({...filterOptions, filterBySpecie: species.find((element) => element === spec)})}>{spec.name}</a>
+                        <button className="plants-btn" onClick={(spec) => setFilterOptions({ ...filterOptions, filterBySpecie: species.find((element) => element === spec) })}>{spec.name}</button>
                     </li>) : <h2>Brak gatunków do wyświetlenia</h2>}
                 </ul>
                 <h2>Grupy</h2>
                 <ul>
-                    {groupOfPlants.length ? groupOfPlants.map((group, index) => <li key={index}>{group.name}</li>) : <h2>Brak grup do wyświetlenia</h2>}
+                    {groupOfPlants.length ? groupOfPlants.map((group, index) => <li key={index}>
+                        <button className="plants-btn" onClick={(group) => setFilterOptions({ ...filterOptions, filterByGroupOfPlants: groupOfPlants.find((element) => element === group) })}>{group.name}</button>
+                    </li>) : <h2>Brak grup do wyświetlenia</h2>}
                 </ul>
             </div>
             <div className="content__list">
                 <h1>Rośliny</h1>
                 <div className="content__filter">
-                    <Searchbar onChange={(event) => setFilterOptions({...filterOptions, wordToFind: event.target.value})}/>
+                    <Searchbar onChange={(event) => setFilterOptions({ ...filterOptions, wordToFind: event.target.value })} />
                     <p>Pokaż
                         <select className="content__select" >
                             <option value="12">12</option>
@@ -75,3 +77,4 @@ const Plants = () => {
 }
 
 export default Plants;
+

@@ -13,10 +13,18 @@ const AddRecords = () => {
         <div className="container addrecords">
             <h1>Dodaj rekordy</h1>
             <div>
-            <Button className={tab === "plant" ? "addrecords__button addrecords__button-active" : "addrecords__button"} onClick={() => setTab("plant")}>Roślina</Button>
-                <Button className={tab === "category" ? "addrecords__button addrecords__button-active" : "addrecords__button"} onClick={() => setTab("category")}>Kategoria</Button>
-                <Button className={tab === "group-of-plants" ? "addrecords__button addrecords__button-active" : "addrecords__button"} onClick={() => setTab("group-of-plants")}>Grupa roślin</Button>
-                <Button className={tab === "specie" ? "addrecords__button addrecords__button-active" : "addrecords__button"} onClick={() => setTab("specie")}>Gatunek</Button>
+                <Button
+                    className={tab === "plant" ? "addrecords__button addrecords__button-active" : "addrecords__button"}
+                    onClick={() => setTab("plant")}>Roślina</Button>
+                <Button
+                    className={tab === "category" ? "addrecords__button addrecords__button-active" : "addrecords__button"}
+                    onClick={() => setTab("category")}>Kategoria</Button>
+                <Button
+                    className={tab === "group-of-plants" ? "addrecords__button addrecords__button-active" : "addrecords__button"}
+                    onClick={() => setTab("group-of-plants")}>Grupa roślin</Button>
+                <Button
+                    className={tab === "specie" ? "addrecords__button addrecords__button-active" : "addrecords__button"}
+                    onClick={() => setTab("specie")}>Gatunek</Button>
             </div>
             {tab === "category" ? <AddCategory /> : ""}
             {tab === "group-of-plants" ? <AddGroupOfPlants /> : ""}
@@ -27,3 +35,4 @@ const AddRecords = () => {
 }
 
 export default AddRecords;
+

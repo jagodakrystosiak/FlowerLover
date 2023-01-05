@@ -47,7 +47,8 @@ const Posts = () => {
             for (let j = 0; j < categories.length; j++) {
                 var newCategories = [];
                 if (posts[i].hasOwnProperty("categories")) newCategories = posts[i].categories;
-                if (!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)) {
+                if (!newCategories.includes(categories[j]) && posts[i].hasOwnProperty("categoriesIds") 
+                && posts[i].categoriesIds !== null && posts[i].categoriesIds.includes(categories[j].id)) {
                     newCategories[newCategories.length] = categories[j];
                 }
                 posts[i] = { ...posts[i], categories: newCategories };
@@ -59,7 +60,8 @@ const Posts = () => {
     const handlePostsPerPageChange = (event) => setPostsPerPage(event.target.value);
     const handleSortPosts = (event) => setFilterOptions({...filterOptions, sortType: event.target.value});
     const handleSearchPosts = (event) => setFilterOptions({...filterOptions, wordToFind: event.target.value});
-    const handleCategoryButtonClick = (category) => { filterOptions.filterByCategory === category ? setFilterOptions({...filterOptions, filterByCategory: null}) : setFilterOptions({...filterOptions, filterByCategory: categories.find((element) => element === category)})};
+    const handleCategoryButtonClick = (category) => { filterOptions.filterByCategory === category ? 
+        setFilterOptions({...filterOptions, filterByCategory: null}) : setFilterOptions({...filterOptions, filterByCategory: categories.find((element) => element === category)})};
 
     //ustawia numer aktualnej strony w paginacji
     const paginate = (pageNumber) => setCurrentPage(pageNumber);

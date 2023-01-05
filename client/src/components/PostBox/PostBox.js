@@ -13,7 +13,9 @@ function PostBox({ post }) {
                 <div className="postbox__bottom">
                     <p className="postbox__author"><span>autor: <span>{post.username}</span></span> {dateConverter(post.createDate)}</p>
                     <div>
-                        {post.categories?.map((category, index) => <Button key={index} className="btn--light btn--small">{category.name}</Button>)}
+                        {post.categories?.map((category, index) => 
+                        <Button key={index} className="btn--light btn--small">{category.name}</Button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -22,3 +24,4 @@ function PostBox({ post }) {
 }
 
 export default PostBox;
+
