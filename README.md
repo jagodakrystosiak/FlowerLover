@@ -1,4 +1,4 @@
-# PlantingSuportApp
+# FlowerLover
 The client-side of an application supporting cultivation of potted plants. It was created using React.js framework, JavaScript programming language and Sass preprocessor.
 
 ## General Information
